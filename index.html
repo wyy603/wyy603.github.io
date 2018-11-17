@@ -62,129 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-欧拉函数" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/17/欧拉函数/" class="article-date">
-  <time datetime="2018-11-17T15:43:39.000Z" itemprop="datePublished">2018-11-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/17/欧拉函数/">欧拉函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h2><p>欧拉函数phi（$\varphi$），$\varphi(x)$表示小于$x$的所有正整数中与$x$互质的数的个数，其中$x$为正整数，并规定$\varphi(1)=1$</p>
-<h2 id="2-性质"><a href="#2-性质" class="headerlink" title="2.性质"></a>2.性质</h2><p>这里给出了一些常用的性质以及其证明。（加粗的是重要性质，其它只是为了作为推出这些性质的引理存在）</p>
-<blockquote>
-<p>1) 若$(m_1, m_2)=1$</p>
-</blockquote>
-<blockquote>
-<p>且$m_1y_1+m_2x_1\equiv m_1y_2+m_2x_2(\mod m_1m_2)$</p>
-</blockquote>
-<blockquote>
-<p>则有$x_1\equiv x_2(\mod m_1), y_1\mod y_2(\mod m_2)$</p>
-</blockquote>
-<p>证：由题意，$m_1y_1+m_2x_1\equiv m_1y_2+m_2x_2(\mod m_1)$</p>
-<p>所以$m_2x_1\equiv m_2x_2(\mod m_1)$，又$(m_1,m_2)=1$，则有$x_1\equiv x_2(\mod m_1)$</p>
-<p>同理可得$y_1\equiv y_2(\mod m_2)$，证毕。</p>
-<blockquote>
-<p>2) $(m_1,m_2)=1$</p>
-</blockquote>
-<blockquote>
-<p>当$x,y$分别遍历模$m_1,m_2$的完全剩余系时</p>
-</blockquote>
-<blockquote>
-<p>$m_1y+m_2x$遍历模$m_1m_2$的完全剩余系。</p>
-</blockquote>
-<p>证：由(1)，每一个数对$(x,y) (1\le x\le m_1, 1\le y\le m_2)$都与一个$m_1y+m_2x$模$m_1m_2$意义下的数对应，不会有两个数对对应一个数。</p>
-<p>又 $m_1$的完全剩余系长度为$m_1$，$m_2$的完全剩余系长度为$m_2$，$m_1m_2$完全剩余系长度为$m_1m_2$，所以$m_1m_2$的完全剩余系中每个数都被取到了</p>
-<p>证毕。</p>
-<blockquote>
-<p>3) 若$(n,m_1m_2)=1$，$(m_1,m_2)=1$</p>
-</blockquote>
-<blockquote>
-<p>则一定存在$x_0, y_0$使得$m_1y_0+m_2x_0= n$，其中</p>
-</blockquote>
-<blockquote>
-<p>$(x_0, m_1)=1, (y_0, m_2)=1$</p>
-</blockquote>
-<p>证：由$\text{Bezout}$定理，我们知道$m_1y+m_2x=n$一定有解，设有解为$ \left{\begin{aligned}x = x_0 \y = y_0\end{aligned}\right.$</p>
-<p>如果$(x_0, m_1)&gt;1$，则存在质数$q$使得$q | x_0, q | m_1$，所以$q|n$，这便于$(n,m_1m_2)=1$矛盾了。</p>
-<p>同理可得$(y_0, m_2)=1$</p>
-<p>证毕。</p>
-<blockquote>
-<p>4) 若$(m_1,m_2)=1, (x, m_1)=1, (y, m_2)=1$</p>
-</blockquote>
-<blockquote>
-<p>则$(m_1y+m_2x,m_1m_2)=1$</p>
-</blockquote>
-<p>证：$(m_1y+m_2x,m_1)=(m_2x,m_1)=1$</p>
-<p>$(m_1y+m_2x,m_2)=(m_1y,m_2)=1$</p>
-<p>所以$(m_1y+m_2x,m_1m_2)=1$，证毕。</p>
-<blockquote>
-<p>5) $(m_1,m_2)=1$</p>
-</blockquote>
-<blockquote>
-<p>当$x,y$分别遍历模$m_1,m_2$的简化剩余系时</p>
-</blockquote>
-<blockquote>
-<p>$m_1y+m_2x$遍历模$m_1m_2$的简化剩余系。</p>
-</blockquote>
-<p>证：由(3)，每个$m_1y+m_2x$能被至少一组$(x,y)$表示。（这里和下面的$m_1y+m_2x$和$(x,y)$都指遍历在简化剩余系中的）</p>
-<p>由(1)，每个$m_1y+m_2x$能被至多一组$(x,y)$表示。</p>
-<p>所以每个$m_1y+m_2x$一定会被一组$(x,y)$表示，也只会被一组$(x,y)$表示。</p>
-<p>由(2)(4)，每个$(x,y)$至少能表示一个$m_1y+m_2x$</p>
-<p>由(1)，每个$(x,y)$至多能表示一个$m_1y+m_2x$</p>
-<p>所以每个$(x,y)$一定能表示一个$m_1y+m_2x$表示，也只能表示一个$m_1y+m_2x$</p>
-<p>所以$(x,y)$和$m_1y+m_2x$一一对应，不重不漏</p>
-<p>证毕。</p>
-<blockquote>
-<p>6) <strong>重要性质 当$(m,n)=1$，有$\varphi(m)\varphi(n)=\varphi(m)\varphi(n)$，即$\varphi$是积性函数的证明</strong></p>
-</blockquote>
-<p>证：由(5)，$m$的简化剩余系有$\varphi(m)$个数，$n$的简化剩余系有$\varphi(n)$个数，$mn$的简化剩余系有$\varphi(mn)$个数</p>
-<p>所以我们得出了$\varphi(m)\varphi(n)=\varphi(m)\varphi(n)$。</p>
-<blockquote>
-<p>7) <strong>重要性质 $p$素，则$\varphi(p^{\alpha})=p^{\alpha-1}(p-1)$</strong></p>
-</blockquote>
-<p>证：与$p^{\alpha}$不互素的数一定是与$p$不互素的数</p>
-<p>所以$\varphi(p^{\alpha})=p^{\alpha}-p^{\alpha-1}=p^{\alpha-1}(p-1)$</p>
-<blockquote>
-<p><strong>8) 重要性质</strong></p>
-<p><strong>用算术基本定理将$n$分解为$n=\prod_{i=1}^{m} {p_i^{k_i}}$ ($p_i$为两两不同的素数，$k_i\ge 1$）</strong></p>
-<p>$\varphi(n)=n\prod_{i=1}^{m}(1-\frac{1}{p_i})$</p>
-</blockquote>
-<p>证</p>
-<p>$\varphi(n)$</p>
-<p>$=\varphi(\prod_{i=1}^{m} p_i^{k_i})$</p>
-<p>$=\prod_{i=1}^{m} \varphi(p_i^{k_i})$</p>
-<p>$=\prod_{i=1}^{m} (p_i^{k_i-1}(p_i-1))$</p>
-<p>$=n\prod_{i=1}^{m}(1-\frac{1}{p_i})$</p>
-<p>证毕。</p>
-<h2 id="3-欧拉函数筛法"><a href="#3-欧拉函数筛法" class="headerlink" title="3.欧拉函数筛法"></a>3.欧拉函数筛法</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/欧拉函数/" data-id="cjolmhqs10001aouwm9rj5dgv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-start" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/17/start/" class="article-date">
@@ -212,7 +89,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/start/" data-id="cjolmhqs40002aouwyn7wrvgo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/17/start/" data-id="cjolmikx3000230uw9c1anx7e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/17/hello-world/" data-id="cjolmhqrs0000aouwo55nsh6q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/17/hello-world/" data-id="cjolmikws000030uwj7lutrkg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -296,10 +173,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2018/11/17/欧拉函数/">欧拉函数</a>
-          </li>
         
           <li>
             <a href="/2018/11/17/start/">Start</a>
