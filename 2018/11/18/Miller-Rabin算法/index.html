@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="OI-数论,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wyy603.github.io/index.html">
+<meta name="description" content="Miller_Rabin算法可以快速判断一个数是不是质数。   一、快速幂 &amp;amp; 快速乘快速幂：求$a^b \, mod \, p$ 很容易想到暴力方法，直接累计 12345678910long long mypow(long long a, long long b, long long p)&amp;#123;	long long result = 1;	while (b)    &amp;#123;">
+<meta name="keywords" content="OI-数论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Miller_Rabin算法">
+<meta property="og:url" content="https://wyy603.github.io/2018/11/18/Miller-Rabin算法/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Miller_Rabin算法可以快速判断一个数是不是质数。   一、快速幂 &amp;amp; 快速乘快速幂：求$a^b \, mod \, p$ 很容易想到暴力方法，直接累计 12345678910long long mypow(long long a, long long b, long long p)&amp;#123;	long long result = 1;	while (b)    &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-18T10:04:29.724Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Miller_Rabin算法">
+<meta name="twitter:description" content="Miller_Rabin算法可以快速判断一个数是不是质数。   一、快速幂 &amp;amp; 快速乘快速幂：求$a^b \, mod \, p$ 很容易想到暴力方法，直接累计 12345678910long long mypow(long long a, long long b, long long p)&amp;#123;	long long result = 1;	while (b)    &amp;#123;">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://wyy603.github.io/">
+  <link rel="canonical" href="https://wyy603.github.io/2018/11/18/Miller-Rabin算法/">
 
 
 
 
 
-  <title>Hexo</title>
+  <title>Miller_Rabin算法 | Hexo</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/18/Miller-Rabin算法/" itemprop="url">Miller_Rabin算法</a></h1>
+          <h1 class="post-title" itemprop="name headline">Miller_Rabin算法</h1>
         
 
         <div class="post-meta">
@@ -298,9 +300,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>Miller_Rabin算法可以快速判断一个数是不是质数。</p>
 </blockquote>
 <hr>
@@ -339,8 +339,6 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="function">ull <span class="title">q_mul</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ull result = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result + a) % p;</span><br><span class="line">		a = (a + a) % p;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ull <span class="title">q_pow</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ull result = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = q_mul(result, a, p);</span><br><span class="line">        a = q_mul(a, a, p);</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Miller_Rabin</span><span class="params">(ull P, ull ROUND)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (P &lt;= <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (P == <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	srand(time(<span class="literal">NULL</span>));</span><br><span class="line">	ull t = <span class="number">0</span>, u = P - <span class="number">1</span>, x, x1;</span><br><span class="line">	<span class="keyword">while</span> (u % <span class="number">2</span> == <span class="number">0</span>) u &gt;&gt;= <span class="number">1</span>, t++;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= ROUND; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ull a = rand() % (P - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">		x = q_pow(a, u, P);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= t; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			x1 = q_mul(x, x, P);</span><br><span class="line">			<span class="keyword">if</span> (x1 == <span class="number">1</span> &amp;&amp; x != <span class="number">1</span> &amp;&amp; x != P - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			x = x1;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (x != <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 
-          
-        
       
     </div>
     
@@ -355,134 +353,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wyy603.github.io/blog/2018/11/17/start/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr_Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/17/start/" itemprop="url">Start</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T23:39:00+08:00">
-                2018-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/blog/tags/OI-数论/" rel="tag"># OI-数论</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="开始。"><a href="#开始。" class="headerlink" title="开始。"></a>开始。</h4><p>$\sum$</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/11/17/start/" rel="next" title="Start">
+                <i class="fa fa-chevron-left"></i> Start
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -492,10 +392,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -503,6 +404,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -523,8 +428,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -575,6 +489,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、快速幂-amp-快速乘"><span class="nav-number">1.</span> <span class="nav-text">一、快速幂 &amp; 快速乘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、Fermat定理"><span class="nav-number">2.</span> <span class="nav-text">二、Fermat定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、二次探测定理"><span class="nav-number">3.</span> <span class="nav-text">三、二次探测定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、代码"><span class="nav-number">4.</span> <span class="nav-text">四、代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -715,6 +645,10 @@
 
 
   
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
