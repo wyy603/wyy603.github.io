@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="Start,">
+  <meta name="keywords" content="OI-模板,">
 
 
 
@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="开始。$\sum$">
-<meta name="keywords" content="Start">
+<meta name="description" content="输入输出模板12345678910111213141516171819202122namespace io&amp;#123;	inline long long read()    &amp;#123;    	long long ret = 0, t = 1;    	char c = getchar();    	while ((c &amp;lt; &apos;0&apos; || c &amp;gt; &apos;9&apos;) &amp;amp;&amp;amp; c !">
+<meta name="keywords" content="OI-模板">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Start">
-<meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/11/17/start/index.html">
+<meta property="og:title" content="快速读入输出">
+<meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/11/18/快速读入输出/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="开始。$\sum$">
+<meta property="og:description" content="输入输出模板12345678910111213141516171819202122namespace io&amp;#123;	inline long long read()    &amp;#123;    	long long ret = 0, t = 1;    	char c = getchar();    	while ((c &amp;lt; &apos;0&apos; || c &amp;gt; &apos;9&apos;) &amp;amp;&amp;amp; c !">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-18T09:41:44.293Z">
+<meta property="og:updated_time" content="2018-11-18T13:11:09.664Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Start">
-<meta name="twitter:description" content="开始。$\sum$">
+<meta name="twitter:title" content="快速读入输出">
+<meta name="twitter:description" content="输入输出模板12345678910111213141516171819202122namespace io&amp;#123;	inline long long read()    &amp;#123;    	long long ret = 0, t = 1;    	char c = getchar();    	while ((c &amp;lt; &apos;0&apos; || c &amp;gt; &apos;9&apos;) &amp;amp;&amp;amp; c !">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/17/start/">
+  <link rel="canonical" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/18/快速读入输出/">
 
 
 
 
 
-  <title>Start | Mr_Wu's Blog</title>
+  <title>快速读入输出 | Mr_Wu's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/17/start/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/18/快速读入输出/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr_Wu">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Start</h1>
+          <h1 class="post-title" itemprop="name headline">快速读入输出</h1>
         
 
         <div class="post-meta">
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T23:39:00+08:00">
-                2018-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T20:19:17+08:00">
+                2018-11-18
               </time>
             
 
@@ -324,7 +324,66 @@
       
 
       
-        <h4 id="开始。"><a href="#开始。" class="headerlink" title="开始。"></a>开始。</h4><p>$\sum$</p>
+        <h4 id="输入输出模板"><a href="#输入输出模板" class="headerlink" title="输入输出模板"></a>输入输出模板</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> io</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    	<span class="keyword">long</span> <span class="keyword">long</span> ret = <span class="number">0</span>, t = <span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">char</span> c = getchar();</span><br><span class="line">    	<span class="keyword">while</span> ((c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) &amp;&amp; c != <span class="string">'-'</span>) c = getchar();</span><br><span class="line">    	<span class="keyword">if</span> (c == <span class="string">'-'</span>) t = <span class="number">-1</span>, c = getchar();</span><br><span class="line">    	<span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    	<span class="keyword">return</span> ret * t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">out</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (x / <span class="number">10</span>) out(x / <span class="number">10</span>);</span><br><span class="line">		<span class="built_in">putchar</span>(<span class="string">'0'</span> + x % <span class="number">10</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (x &lt; <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">'-'</span>), out(-x);</span><br><span class="line">		<span class="keyword">else</span> out(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面是一个getchar版本的输入输出板子。</p>
+<h4 id="输入时间对比"><a href="#输入时间对比" class="headerlink" title="输入时间对比"></a>输入时间对比</h4><p>（输入$10^7$个$123$)</p>
+<p>cin代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> x;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) <span class="built_in">cin</span> &gt;&gt; x;</span><br></pre></td></tr></table></figure>
+<p>scanf代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> x;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;x);</span><br></pre></td></tr></table></figure>
+<p>io::read代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> x;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) x = io::read();</span><br></pre></td></tr></table></figure>
+<p>评测环境：Intel(R) Core(TM) i5-7Y54 CPU @ 1.20GHz 1.61GHz</p>
+<p>时间对比：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">cin</th>
+<th style="text-align:right">scanf</th>
+<th style="text-align:right">io::read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">12.93s</td>
+<td style="text-align:right">4.53s</td>
+<td style="text-align:right">0.70s</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>测完之后，输入输出模板看起来比scanf快4倍，比cin不知道快到哪里去了。</p>
+<h4 id="输出时间对比"><a href="#输出时间对比" class="headerlink" title="输出时间对比"></a>输出时间对比</h4><p>（输出$10^7$次$123$）</p>
+<p>cout代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) <span class="built_in">cout</span> &lt;&lt; <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<p>printf代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+<p>io::print代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000000</span>; ++i) io::print(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+<p>评测环境：Intel(R) Core(TM) i5-7Y54 CPU @ 1.20GHz 1.61GHz</p>
+<p>时间对比：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">cout</th>
+<th style="text-align:right">printf</th>
+<th style="text-align:right">io::print</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2.74s</td>
+<td style="text-align:right">48.81s</td>
+<td style="text-align:right">1.38s</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>测完之后，输入输出模板看起来比cout快2倍。</p>
+<p>但为啥cout比printf要快这么多啊orz 为啥printf要用1min啊…</p>
+<p>这件事我也说不清楚。。以后再补上</p>
 
       
     </div>
@@ -342,7 +401,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Start/" rel="tag"># Start</a>
+            <a href="/tags/OI-模板/" rel="tag"># OI-模板</a>
           
         </div>
       
@@ -355,15 +414,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/18/浅谈树链剖分/" rel="next" title="浅谈树链剖分">
+                <i class="fa fa-chevron-left"></i> 浅谈树链剖分
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/18/Miller-Rabin算法/" rel="prev" title="浅谈Miller_Rabin算法">
-                浅谈Miller_Rabin算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -488,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#开始。"><span class="nav-number">1.</span> <span class="nav-text">开始。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入输出模板"><span class="nav-number">1.</span> <span class="nav-text">输入输出模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入时间对比"><span class="nav-number">2.</span> <span class="nav-text">输入时间对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出时间对比"><span class="nav-number">3.</span> <span class="nav-text">输出时间对比</span></a></li></ol></div>
             
 
           </div>
