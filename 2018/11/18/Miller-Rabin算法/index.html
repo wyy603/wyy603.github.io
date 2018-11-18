@@ -83,8 +83,8 @@
 <meta name="keywords" content="OI-数论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Miller_Rabin算法">
-<meta property="og:url" content="https://wyy603.github.io/2018/11/18/Miller-Rabin算法/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="https://wyy603.github.io/blog/2018/11/18/Miller-Rabin算法/index.html">
+<meta property="og:site_name" content="Mr_Wu&#39;s Blog">
 <meta property="og:description" content="Miller_Rabin算法可以快速判断一个数是不是质数。   一、快速幂 &amp;amp; 快速乘快速幂：求$a^b \, mod \, p$ 很容易想到暴力方法，直接累计 12345678910long long mypow(long long a, long long b, long long p)&amp;#123;	long long result = 1;	while (b)    &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-11-18T10:04:29.724Z">
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://wyy603.github.io/2018/11/18/Miller-Rabin算法/">
+  <link rel="canonical" href="https://wyy603.github.io/blog/2018/11/18/Miller-Rabin算法/">
 
 
 
 
 
-  <title>Miller_Rabin算法 | Hexo</title>
+  <title>Miller_Rabin算法 | Mr_Wu's Blog</title>
   
 
 
@@ -156,12 +156,12 @@
     <div class="custom-logo-site-title">
       <a href="/blog/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Mr_Wu's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">A weak OIer's Blog</p>
       
   </div>
 
@@ -187,6 +187,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
           </a>
         </li>
       
@@ -233,16 +253,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wyy603.github.io/blog/2018/11/18/Miller-Rabin算法/">
+    <link itemprop="mainEntityOfPage" href="https://wyy603.github.io/blog/blog/2018/11/18/Miller-Rabin算法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr_Wu">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Mr_Wu's Blog">
     </span>
 
     
@@ -446,6 +466,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256" alt="Mr_Wu">
+            
               <p class="site-author-name" itemprop="name">Mr_Wu</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -469,10 +491,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/blog/tags/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
