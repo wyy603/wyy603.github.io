@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="OI-图论,">
 
 
 
@@ -79,13 +79,24 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wyy603.github.io/index.html">
+<meta name="description" content="一些事情Tarjan研究了许多关于图论的算法，这里简要介绍  离线LCA  割点 &amp;amp; 割边  强连通分量  缩点    你需要掌握的前置知识图论的一些基本操作  概念  存图（邻接表）    1.tarjan 求离线LCALCA的求法有好几种，先列个表      倍增LCA Tarjan LCA LCA-&amp;gt;ST表 树链剖分     预处理 $O(n\log{n})$ $O(n\alp">
+<meta name="keywords" content="OI-图论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan算法">
+<meta property="og:url" content="https://wyy603.github.io/2018/11/18/Tarjan算法/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一些事情Tarjan研究了许多关于图论的算法，这里简要介绍  离线LCA  割点 &amp;amp; 割边  强连通分量  缩点    你需要掌握的前置知识图论的一些基本操作  概念  存图（邻接表）    1.tarjan 求离线LCALCA的求法有好几种，先列个表      倍增LCA Tarjan LCA LCA-&amp;gt;ST表 树链剖分     预处理 $O(n\log{n})$ $O(n\alp">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34919.png">
+<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34920.png">
+<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34947.png">
+<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34947.png">
+<meta property="og:image" content="https://cdn.luogu.org/upload/pic/35411.png">
+<meta property="og:updated_time" content="2018-11-18T10:26:42.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Tarjan算法">
+<meta name="twitter:description" content="一些事情Tarjan研究了许多关于图论的算法，这里简要介绍  离线LCA  割点 &amp;amp; 割边  强连通分量  缩点    你需要掌握的前置知识图论的一些基本操作  概念  存图（邻接表）    1.tarjan 求离线LCALCA的求法有好几种，先列个表      倍增LCA Tarjan LCA LCA-&amp;gt;ST表 树链剖分     预处理 $O(n\log{n})$ $O(n\alp">
+<meta name="twitter:image" content="https://cdn.luogu.org/upload/pic/34919.png">
 
 
 
@@ -115,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://wyy603.github.io/">
+  <link rel="canonical" href="https://wyy603.github.io/2018/11/18/Tarjan算法/">
 
 
 
 
 
-  <title>Hexo</title>
+  <title>Tarjan算法 | Hexo</title>
   
 
 
@@ -140,8 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,9 +224,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +256,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/18/Tarjan算法/" itemprop="url">Tarjan算法</a></h1>
+          <h1 class="post-title" itemprop="name headline">Tarjan算法</h1>
         
 
         <div class="post-meta">
@@ -298,9 +306,7 @@
       
 
       
-        
-          
-            <h4 id="一些事情"><a href="#一些事情" class="headerlink" title="一些事情"></a>一些事情</h4><p>Tarjan研究了许多关于图论的算法，这里简要介绍</p>
+        <h4 id="一些事情"><a href="#一些事情" class="headerlink" title="一些事情"></a>一些事情</h4><p>Tarjan研究了许多关于图论的算法，这里简要介绍</p>
 <ol>
 <li><p>离线LCA</p>
 </li>
@@ -513,8 +519,6 @@
 <p>双连通分量的求法与强连通分量的求法几乎完全相似，只需要注意不能连到自己的父亲</p>
 <p>缩完点后是一颗树，两个点$u,v$之间的路径点数量为</p>
 <script type="math/tex; mode=display">dep_u+dep_v-2dep_{lca(u,v)}+1</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 50050</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b) ((a &lt; b) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) ((a &gt; b) ? (a) : (b))</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>&amp; u, <span class="keyword">int</span>&amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t = u;</span><br><span class="line">	u = v, v = t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> v, next;</span><br><span class="line">&#125;E[MAXN &lt;&lt; <span class="number">1</span>], tree[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> N, M, Q, head[MAXN], Elen, thead[MAXN], tElen, lnode[MAXN], rnode[MAXN];</span><br><span class="line"><span class="keyword">int</span> dfn[MAXN], low[MAXN], color[MAXN], <span class="built_in">stack</span>[MAXN], instack[MAXN], stacklen, colorcnt, cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	++Elen, E[Elen].v = v, E[Elen].next = head[u], head[u] = Elen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addt</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	++tElen, tree[tElen].v = v, tree[tElen].next = thead[u], thead[u] = tElen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> ff)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u] = low[u] = ++cnt, instack[u] = <span class="literal">true</span>, <span class="built_in">stack</span>[++stacklen] = u;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span> (i = head[u]; i; i = E[i].next)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (E[i].v == ff) <span class="keyword">continue</span>; <span class="comment">//不能连到自己的父亲</span></span><br><span class="line">		<span class="keyword">if</span> (!dfn[E[i].v])</span><br><span class="line">		&#123;</span><br><span class="line">			tarjan(E[i].v, u);</span><br><span class="line">			low[u] = min(low[u], low[E[i].v]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (instack[E[i].v]) low[u] = min(low[u], low[E[i].v]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (dfn[u] == low[u])</span><br><span class="line">	&#123;</span><br><span class="line">		instack[u] = <span class="literal">false</span>, color[u] = ++colorcnt;</span><br><span class="line">		<span class="keyword">while</span> (<span class="built_in">stack</span>[stacklen] != u) color[<span class="built_in">stack</span>[stacklen]] = colorcnt, instack[<span class="built_in">stack</span>[stacklen]] = <span class="literal">false</span>, --stacklen;</span><br><span class="line">		--stacklen;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dep[MAXN], father[MAXN][<span class="number">17</span>];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGN 16</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> ff)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	dep[u] = dep[ff] + <span class="number">1</span>, father[u][<span class="number">0</span>] = ff;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= LOGN; ++i) father[u][i] = father[father[u][i - <span class="number">1</span>]][i - <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (i = thead[u]; i; i = tree[i].next) <span class="keyword">if</span> (tree[i].v != ff) dfs(tree[i].v, u);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lca</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">if</span> (dep[u] &lt; dep[v]) swap(u, v);</span><br><span class="line">	<span class="keyword">for</span> (i = LOGN; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (dep[u] == dep[v]) <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span> (dep[father[u][i]] &gt;= dep[v]) u = father[u][i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (u == v) <span class="keyword">return</span> u;</span><br><span class="line">	<span class="keyword">for</span> (i = LOGN; i &gt;= <span class="number">0</span>; --i) <span class="keyword">if</span> (father[u][i] != father[v][i]) u = father[u][i], v = father[v][i];</span><br><span class="line">	<span class="keyword">return</span> father[u][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!x) <span class="keyword">return</span>;</span><br><span class="line">	output(x &gt;&gt; <span class="number">1</span>), <span class="built_in">putchar</span>((x &amp; <span class="number">1</span>) + <span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	N = read(), M = read();</span><br><span class="line">	<span class="keyword">int</span> i, j, u, v;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= M; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		lnode[i] = read(), rnode[i] = read();</span><br><span class="line">		add(lnode[i], rnode[i]), add(rnode[i], lnode[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i) <span class="keyword">if</span> (!dfn[i]) tarjan(i, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= M; ++i) </span><br><span class="line">		<span class="keyword">if</span> (color[lnode[i]] != color[rnode[i]]) </span><br><span class="line">			addt(color[lnode[i]], color[rnode[i]]), addt(color[rnode[i]], color[lnode[i]]);</span><br><span class="line">	dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">	Q = read();</span><br><span class="line">	<span class="keyword">while</span> (Q--)</span><br><span class="line">	&#123;</span><br><span class="line">		u = read(), v = read();</span><br><span class="line">		output(dep[color[u]] + dep[color[v]] - (dep[lca(color[u], color[v])] &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">		<span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -529,291 +533,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wyy603.github.io/blog/2018/11/18/Miller-Rabin算法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr_Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/18/Miller-Rabin算法/" itemprop="url">Miller_Rabin算法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T18:03:49+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/blog/tags/OI-图论/" rel="tag"># OI-图论</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Miller_Rabin算法可以快速判断一个数是不是质数。</p>
-</blockquote>
-<hr>
-<h3 id="一、快速幂-amp-快速乘"><a href="#一、快速幂-amp-快速乘" class="headerlink" title="一、快速幂 &amp; 快速乘"></a>一、快速幂 &amp; 快速乘</h3><p>快速幂：求$a^b \, mod \, p$</p>
-<p>很容易想到暴力方法，直接累计</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">mypow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">    	result = (result * a) % p;</span><br><span class="line">        b--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个做法是线性的，我们有更快的$\log_2$做法。</p>
-<p>考虑到对于$b \equiv 0 (mod \, 2)$有$a^b = (a^2)^{\frac{b}{2}}$</p>
-<p>对于$b \equiv 1 (mod \, 2)$有$a^b = a*(a^2)^{\lfloor \frac{b}{2} \rfloor}$</p>
-<p>我们可以在每次处理时将$a$变为$a^2$，而$b$则变为$\lfloor \frac{b}{2} \rfloor$可将时间降至$\log_2$级别。</p>
-<p>注意如果当前指数为奇数，要先将结果乘上$a$.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">q_pow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result * a) % p;</span><br><span class="line">        a = (a * a) % p;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>快速乘</p>
-<p>（并不能说是快速乘，普通$a \times b\mod{p}$是$O(1)$的，但可能会超出$long\,long$的范围，只能退而求其次，用$O(\log n)$的复杂度乘）</p>
-<p>跟快速幂思想基本相同，不做过多介绍了：</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">q_mul</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result + a) % p;</span><br><span class="line">		a = (a + a) % p;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="二、Fermat定理"><a href="#二、Fermat定理" class="headerlink" title="二、Fermat定理"></a>二、Fermat定理</h3><p>Fermat定理：如果$p$是素数并且$gcd(a,p)=1$，有</p>
-<script type="math/tex; mode=display">a^{p-1} \equiv 1 (mod \, p)</script><p>用数学归纳法可证明，在这里不做详细证明。</p>
-<p>其逆否命题：如果$a^{p-1} \not \equiv 1 (mod \,p)$且$gcd(a,p)=1$，那么$p$不是素数。</p>
-<p>所以我们可以取随机的$a(0&lt;a&lt;p)$进行<strong>Fermat测试</strong>，如果$a^{p-1} \not \equiv 1 (mod \,p)$可直接判否($100$%)，否则可以继续取下一个$a$进行测试。选一个常数$K$作为次数，如果$p$通过了$K$次Fermat测试，在很大概率上他是素数。</p>
-<p>很不幸的是，有一种数叫做$Carmichael$数，它们是合数且满足Fermat定理的逆定理，所以上述思想对于$Carmichael$数是无效的。前三个$Carmichael$数是$561,1105,1729$。在$[1,100000000]$范围内的整数中，只有$255$个$Carmichael$数。</p>
-<p>Miller_Rabin比上述思想更加优秀，它加入了<strong>二次探测定理</strong>，补上了Fermat测试的缺陷。</p>
-<hr>
-<h3 id="三、二次探测定理"><a href="#三、二次探测定理" class="headerlink" title="三、二次探测定理"></a>三、二次探测定理</h3><p>二次探测定理：对于任意正整数$x$，任意素数$p$，若$x^2 \equiv 1 (mod \, p)$，则$x=1$或$p-1$.</p>
-<p>如何使用该定理？</p>
-<p>我们令$p-1=2^t \times u \, (u \in N)$, 取一随机的$a$满足$(0&lt;a&lt;p)$然后令$X[0]=a^u \mod{p}$</p>
-<p>然后我们递推$t$次，第$i$次操作令$X[i]=X[i-1]^2 \mod{p}$</p>
-<p>根据二次探测定理，若$X[i] = 1$，则$p$是素数的充要条件为$X[i-1]=1$或$X[i-1]=p-1$，不满足则$p$是合数。</p>
-<p>有$X[i]=(a^u)^{2^i} \mod p$, $X[t]=(a^u)^{2^t} \mod p$</p>
-<p>发现$X[t]=a^{p-1} \mod p$，再做一次Fermat测试，便结束一次完整测试。</p>
-<hr>
-<h3 id="四、代码"><a href="#四、代码" class="headerlink" title="四、代码"></a>四、代码</h3><p>下面是参考代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="function">ull <span class="title">q_mul</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ull result = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result + a) % p;</span><br><span class="line">		a = (a + a) % p;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ull <span class="title">q_pow</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ull result = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = q_mul(result, a, p);</span><br><span class="line">        a = q_mul(a, a, p);</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Miller_Rabin</span><span class="params">(ull P, ull ROUND)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (P &lt;= <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (P == <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	srand(time(<span class="literal">NULL</span>));</span><br><span class="line">	ull t = <span class="number">0</span>, u = P - <span class="number">1</span>, x, x1;</span><br><span class="line">	<span class="keyword">while</span> (u % <span class="number">2</span> == <span class="number">0</span>) u &gt;&gt;= <span class="number">1</span>, t++;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= ROUND; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ull a = rand() % (P - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">		x = q_pow(a, u, P);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= t; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			x1 = q_mul(x, x, P);</span><br><span class="line">			<span class="keyword">if</span> (x1 == <span class="number">1</span> &amp;&amp; x != <span class="number">1</span> &amp;&amp; x != P - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			x = x1;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (x != <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wyy603.github.io/blog/2018/11/17/start/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr_Wu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/11/17/start/" itemprop="url">Start</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T23:39:00+08:00">
-                2018-11-17
-              </time>
+              <a href="/blog/2018/11/18/Miller-Rabin算法/" rel="next" title="Miller_Rabin算法">
+                <i class="fa fa-chevron-left"></i> Miller_Rabin算法
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h4 id="开始。"><a href="#开始。" class="headerlink" title="开始。"></a>开始。</h4><p>$\sum$</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -823,10 +572,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -834,6 +584,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -854,8 +608,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -906,6 +669,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些事情"><span class="nav-number">1.</span> <span class="nav-text">一些事情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#你需要掌握的前置知识"><span class="nav-number">2.</span> <span class="nav-text">你需要掌握的前置知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-tarjan-求离线LCA"><span class="nav-number">3.</span> <span class="nav-text">1.tarjan 求离线LCA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-割点-amp-割边"><span class="nav-number">4.</span> <span class="nav-text">2.割点 &amp; 割边</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-强连通分量"><span class="nav-number">5.</span> <span class="nav-text">3.强连通分量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-缩点"><span class="nav-number">6.</span> <span class="nav-text">4.缩点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1046,6 +825,10 @@
 
 
   
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
