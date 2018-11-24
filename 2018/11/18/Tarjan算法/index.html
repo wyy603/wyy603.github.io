@@ -91,16 +91,16 @@
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
 <meta property="og:description" content="一些事情Tarjan研究了许多关于图论的算法，这里简要介绍  离线LCA  割点 &amp;amp; 割边  强连通分量  缩点    你需要掌握的前置知识图论的一些基本操作  概念  存图（邻接表）    1.tarjan 求离线LCALCA的求法有好几种，先列个表      倍增LCA Tarjan LCA LCA-&amp;gt;ST表 树链剖分     预处理 $O(n\log{n})$ $O(n\alp">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34919.png">
-<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34920.png">
-<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34947.png">
-<meta property="og:image" content="https://cdn.luogu.org/upload/pic/34947.png">
-<meta property="og:image" content="https://cdn.luogu.org/upload/pic/35411.png">
-<meta property="og:updated_time" content="2018-11-18T11:31:14.974Z">
+<meta property="og:image" content="https://i.niupic.com/images/2018/11/24/5AFE.png">
+<meta property="og:image" content="https://i.niupic.com/images/2018/11/24/5AFF.png">
+<meta property="og:image" content="https://i.niupic.com/images/2018/11/24/5AFH.png">
+<meta property="og:image" content="https://i.niupic.com/images/2018/11/24/5AFH.png">
+<meta property="og:image" content="https://i.niupic.com/images/2018/11/24/5AFI.png">
+<meta property="og:updated_time" content="2018-11-24T02:51:49.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Tarjan算法">
 <meta name="twitter:description" content="一些事情Tarjan研究了许多关于图论的算法，这里简要介绍  离线LCA  割点 &amp;amp; 割边  强连通分量  缩点    你需要掌握的前置知识图论的一些基本操作  概念  存图（邻接表）    1.tarjan 求离线LCALCA的求法有好几种，先列个表      倍增LCA Tarjan LCA LCA-&amp;gt;ST表 树链剖分     预处理 $O(n\log{n})$ $O(n\alp">
-<meta name="twitter:image" content="https://cdn.luogu.org/upload/pic/34919.png">
+<meta name="twitter:image" content="https://i.niupic.com/images/2018/11/24/5AFE.png">
 
 
 
@@ -408,10 +408,10 @@
 </ol>
 <p>为什么这个做法是正确的？</p>
 <p>我画了一棵树（大概可以涵盖所有情况了吧）</p>
-<p><img src="https://cdn.luogu.org/upload/pic/34919.png" alt=""></p>
+<p><img src="https://i.niupic.com/images/2018/11/24/5AFE.png" alt=""></p>
 <p>“…”表示中间的一些点，我们研究$lca(u,k_1)$和$lca(u,k_2)$，假设现在在做$u$，$dep_{k_1}&lt;dep_u&lt;dep_{k_2}$，已经做过$lca(u,k_1)$到$k_1$这一部分的子树</p>
 <p>那么我们用一些箭头表示点连到的祖先，应该是这个样子的：</p>
-<p><img src="https://cdn.luogu.org/upload/pic/34920.png" alt=""></p>
+<p><img src="https://i.niupic.com/images/2018/11/24/5AFF.png" alt=""></p>
 <p>然后做完$u$的所有子节点后，容易想到$k_2$也连到了$u$</p>
 <p>然后再看询问$(u,k_1)$和询问$(u,k_2)$，得出的结果就是正解</p>
 <p>看每个节点关系到别的节点的询问，可以用建立一个邻接表的方式。</p>
@@ -447,7 +447,7 @@
 </ul>
 <p>dfs树的回边是什么？</p>
 <p>来看张 图</p>
-<p><img src="https://cdn.luogu.org/upload/pic/34947.png" alt=""></p>
+<p><img src="https://i.niupic.com/images/2018/11/24/5AFH.png" alt=""></p>
 <p>左边是图，右边是这个图的dfs搜索树，红色的数是dfn值，绿色的是low值</p>
 <p>这个dfs以1,3,4,2,5,6的顺序进行了搜索，当搜索到2时，2能走到1，但1是2在搜索树里的祖先，所以(2,1)是一条回边，用橙色箭头标上了</p>
 <p>现在我们来看low值怎么求，现在处理的是u，一开始我们还不知道子树的状态时，low[u]=dfn[u]</p>
@@ -467,7 +467,7 @@
 </ul>
 <p>第一条十分显然，我们来看第二条</p>
 <p>还是以上面那张图为例吧</p>
-<p><img src="https://cdn.luogu.org/upload/pic/34947.png" alt=""></p>
+<p><img src="https://i.niupic.com/images/2018/11/24/5AFH.png" alt=""></p>
 <p>显然3是割点，而我们又发现了low[5] (2) &gt;= dfn[3] (2)</p>
 <p>比较容易想到一件事就是，如果low[v]&gt;=dfn[u]，那么v的子树这一部分在原图里除了连到u的点，与别的点<strong>没有任何关系</strong>，都是在自己连自己。对照点5和6，在原图里确实是这个性质。</p>
 <p>那么删掉u，这一部分就彻底与原图断绝联系了。</p>
@@ -493,7 +493,7 @@
 <li>low[i]的定义变为：表示节点u和u的子树通过dfs树的回边能回到的最早的祖先v的dfn值。<strong>v需要额外的性质：u能到v，v也能到u</strong>。</li>
 </ul>
 <p>来看这个图</p>
-<p><img src="https://cdn.luogu.org/upload/pic/35411.png" alt=""></p>
+<p><img src="https://i.niupic.com/images/2018/11/24/5AFI.png" alt=""></p>
 <p>看从4到1的那条回边。</p>
 <p>看起来十分特殊，事实上，从1一直走到了4，而4这个点又能通过另一条边回到1，不难想象这已经构成了一个强连通子图。</p>
 <p>但什么时候，这个子图不能再大了？</p>
