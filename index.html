@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/26/[POI2006]KRA-The Disks题解/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/26/题解-HEOI2016-TJOI2016-排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr_Wu">
@@ -272,7 +272,146 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/26/[POI2006]KRA-The Disks题解/" itemprop="url">题解:[POI2006]KRA-The_Disks</a></h1>
+                <a class="post-title-link" href="/2018/11/26/题解-HEOI2016-TJOI2016-排序/" itemprop="url">题解: [HEOI2016/TJOI2016] 排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T22:02:47+08:00">
+                2018-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p><a href="https://www.luogu.org/problemnew/show/P2824" target="_blank" rel="noopener">luogu P2824</a></p>
+<p>简述题意：一个1-n的全排列，长度$n\le 50000$，$m(\le 50000)$个操作，每个操作对一段子区间升序排序或降序排序，求做完所有操作后的第$q$位置的数$a_q$</p>
+<h4 id="子任务：对一个0-1序列排序"><a href="#子任务：对一个0-1序列排序" class="headerlink" title="子任务：对一个0/1序列排序"></a>子任务：对一个0/1序列排序</h4><p>如果一个子序列里只有0或1，能否用优秀的复杂度对其排序？</p>
+<p>事实上我们用线段树可以维护，先求出区间和，然后区间全部置0，并在最左端或最右端设置一些数量与区间和相等的1。</p>
+<p>事实上就是这个样子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tmp = head-&gt;query(tasks[i].l, tasks[i].r); <span class="comment">//求出总区间和</span></span><br><span class="line"><span class="keyword">if</span> (!tmp) <span class="keyword">continue</span>; <span class="comment">//如果区间和为0，表示没有1，不用做下面的操作</span></span><br><span class="line">head-&gt;modify(tasks[i].l, tasks[i].r, <span class="number">0</span>); <span class="comment">//全部置0</span></span><br><span class="line"><span class="keyword">if</span> (tasks[i].opt) head-&gt;modify(tasks[i].l, tasks[i].l + tmp - <span class="number">1</span>, <span class="number">1</span>); <span class="comment">//opt=1表示降序排序，此时将左端点置为1</span></span><br><span class="line"><span class="keyword">else</span> head-&gt;modify(tasks[i].r - tmp + <span class="number">1</span>, tasks[i].r, <span class="number">1</span>); <span class="comment">//opt=0表示升序排序，将右端点置为0</span></span><br></pre></td></tr></table></figure>
+<h4 id="Sol"><a href="#Sol" class="headerlink" title="Sol"></a>Sol</h4><p>此题思维个人认为十分巧妙。</p>
+<p>将操作离线，并二分答案，我们的check(x)的意思是询问$a_q$与$x$的关系，这里我的check(x)（x是二分时的mid）将会返回$a_q\ge x$这个条件是否正确。如果$a_q\ge x$，显然我们让二分的$lbound=mid+1$，否则我们让$rbound=mid-1$</p>
+<p>首先将每个数都0/1化，也就是说</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &gt;= x) arr[i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> arr[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后整个序列就转化成0/1序列了</p>
+<p>然后结合刚才的子任务，我们离线地做完所有操作，而一次0/1序列排序是$O(\log n)$，所以check(x)工作一次的复杂度是$O(m \log n)$</p>
+<p>排完序后的arr[Q]实际上是$a_q\ge x$这个条件是否正确，如果是，那么arr[Q]=1，否则arr[Q]=0，所以check(x)直接返回0/1序列中的第Q项</p>
+<p>而外部二分我们猜的答案x，所以总复杂度$O(m \log^2 n)$，可以通过本题</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, Q, arr[MAXN], ans;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> opt, l, r;</span><br><span class="line">&#125;tasks[MAXN]; <span class="comment">//离线地存操作</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sgt</span> //指针线段树（<span class="title">new</span> 创建新节点好像比较慢），支持区间覆盖，区间查询和。</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> sum, lazy, l, mid, r, size;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sgt</span> *<span class="title">lson</span>, *<span class="title">rson</span>;</span></span><br><span class="line">    sgt (<span class="keyword">int</span> le, <span class="keyword">int</span> ri) &#123;l = le, r = ri, mid = (l + r) &gt;&gt; <span class="number">1</span>, size = r - l + <span class="number">1</span>, sum = <span class="number">0</span>, lazy = <span class="number">-1</span>, lson = rson = <span class="literal">NULL</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push_up</span><span class="params">()</span> </span>&#123;sum = lson-&gt;sum + rson-&gt;sum;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cover</span><span class="params">(<span class="keyword">int</span> K)</span></span>&#123;sum = size * K, lazy = K;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push_down</span><span class="params">()</span> </span>&#123;<span class="keyword">if</span> (lazy != <span class="number">-1</span>) lson-&gt;cover(lazy), rson-&gt;cover(lazy), lazy = <span class="number">-1</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span> </span>&#123;<span class="keyword">if</span> (l &lt; r) lson = <span class="keyword">new</span> sgt(l, mid), rson = <span class="keyword">new</span> sgt(mid + <span class="number">1</span>, r), lson-&gt;build(), rson-&gt;build(), push_up();&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R, <span class="keyword">int</span> K)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l == L &amp;&amp; r == R) cover(K);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            push_down();</span><br><span class="line">            <span class="keyword">if</span> (R &lt;= mid) lson-&gt;modify(L, R, K);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (L &gt; mid) rson-&gt;modify(L, R, K);</span><br><span class="line">            <span class="keyword">else</span> lson-&gt;modify(L, mid, K), rson-&gt;modify(mid + <span class="number">1</span>, R, K);</span><br><span class="line">            push_up();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l == L &amp;&amp; r == R) <span class="keyword">return</span> sum;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            push_down();</span><br><span class="line">            <span class="keyword">if</span> (R &lt;= mid) <span class="keyword">return</span> lson-&gt;query(L, R);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (L &gt; mid) <span class="keyword">return</span> rson-&gt;query(L, R);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> lson-&gt;query(L, mid) + rson-&gt;query(mid + <span class="number">1</span>, R);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;*head;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, tmp;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i) head-&gt;modify(i, i, arr[i] &gt;= x);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= M; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		tmp = head-&gt;query(tasks[i].l, tasks[i].r);</span><br><span class="line">		<span class="keyword">if</span> (!tmp) <span class="keyword">continue</span>;</span><br><span class="line">		head-&gt;modify(tasks[i].l, tasks[i].r, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span> (tasks[i].opt) head-&gt;modify(tasks[i].l, tasks[i].l + tmp - <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">else</span> head-&gt;modify(tasks[i].r - tmp + <span class="number">1</span>, tasks[i].r, <span class="number">1</span>); <span class="comment">//01子区间排序</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> head-&gt;query(Q, Q);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	N = read(), M = read();</span><br><span class="line">	head = <span class="keyword">new</span> sgt(<span class="number">1</span>, N);</span><br><span class="line">	head-&gt;build();</span><br><span class="line">	<span class="keyword">int</span> i, lbound = <span class="number">1</span>, rbound = N, mid;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i) arr[i] = read();</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= M; ++i) tasks[i].opt = read(), tasks[i].l = read(), tasks[i].r = read();</span><br><span class="line">	Q = read();</span><br><span class="line">	<span class="keyword">while</span> (lbound &lt;= rbound)</span><br><span class="line">	&#123;</span><br><span class="line">		mid = (lbound + rbound) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (judge(mid)) lbound = mid + <span class="number">1</span>, ans = mid;</span><br><span class="line">		<span class="keyword">else</span> rbound = mid - <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>个人认为：</p>
+<p>思维难度 提高+</p>
+<p>实现难度 提高</p>
+<p>这题能想到二分这个操作个人感觉还是很难的</p>
+<p>可以log n完成0/1序列排序</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/26/题解-KRA-The-Disks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/26/题解-KRA-The-Disks/" itemprop="url">题解:[POI2006]KRA-The_Disks</a></h1>
         
 
         <div class="post-meta">
@@ -1571,7 +1710,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1584,7 +1723,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
