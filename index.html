@@ -253,6 +253,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/29/题解-电路维修/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/29/题解-电路维修/" itemprop="url">题解: 电路维修</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T22:35:10+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="text-Description"><a href="#text-Description" class="headerlink" title="$\text{Description}$"></a>$\text{Description}$</h4><p><a href="https://www.luogu.org/problemnew/show/P2243" target="_blank" rel="noopener">luogu P2243 电路维修</a></p>
+<p><a href="https://www.luogu.org/problemnew/show/P4667" target="_blank" rel="noopener">luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On</a></p>
+<p>后者是前者的加强版，所以下面的讲解以后者为准</p>
+<h4 id="text-Algorithm-1"><a href="#text-Algorithm-1" class="headerlink" title="$\text{Algorithm 1}$"></a>$\text{Algorithm 1}$</h4><p>考虑如果不旋转电路元件，容易想到可以将每个点放在图里，并在用电路连接的两个点上连一条双向边，然后dfs/bfs判断连通性</p>
+<p>如果旋转电路元件，假设当前要处理的一个正方形是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A     B</span><br><span class="line">   /</span><br><span class="line">C     D (B,C间有电路，如果旋转会使得A,D有电路)</span><br></pre></td></tr></table></figure>
+<p>那么考虑BC建一条权为0的边，AD建一条权为1的边，这样就达到了在旋转时计数的效果</p>
+<p>然后问题转换成了$(N+1)(M+1)$个点，之间有双向边，权为0/1，跑最短路</p>
+<p>于是采用dijkstra算法算出点$1$到点$(N+1)(M+1)$的最短路</p>
+<p>另外，因为我比较蠢，所以我用$(y-1)(M+1)+x$表示第$y$行第$x$的这个点在图上的id，体现在了代码的pos(r,c)里</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 5000005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INT_MAX 2147483647</span></span><br><span class="line"><span class="keyword">int</span> T, N, M, nodeN;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pos</span><span class="params">(<span class="keyword">int</span> r, <span class="keyword">int</span> c)</span></span>&#123; <span class="keyword">return</span> (r - <span class="number">1</span>) * (M + <span class="number">1</span>) + c; &#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, next, k;</span><br><span class="line">&#125;E[MAXN];</span><br><span class="line"><span class="keyword">int</span> Elen, head[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ++Elen, E[Elen].v = v, E[Elen].k = k, E[Elen].next = head[u], head[u] = Elen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> str[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> vis[MAXN], dis[MAXN];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nod</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, dis;</span><br><span class="line">    nod(<span class="keyword">int</span> u, <span class="keyword">int</span> d) &#123; v = u, dis = d; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span> &#123;</span> <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(nod n1, nod n2)</span> </span>&#123; <span class="keyword">return</span> n1.dis &gt; n2.dis; &#125; &#125;;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;nod&gt;, cmp&gt; Q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="function">nod <span class="title">p</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= nodeN; ++i) dis[i] = INT_MAX, vis[i] = <span class="number">0</span>;</span><br><span class="line">    dis[u] = <span class="number">0</span>, Q.push(nod(u, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">while</span> (!Q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        p = Q.top(), Q.pop();</span><br><span class="line">        <span class="keyword">if</span> (vis[p.v]) <span class="keyword">continue</span>; vis[p.v] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (i = head[p.v]; i; i = E[i].next)</span><br><span class="line">            <span class="keyword">if</span> (dis[p.v] + E[i].k &lt; dis[E[i].v])</span><br><span class="line">                dis[E[i].v] = dis[p.v] + E[i].k, Q.push(nod(E[i].v, dis[E[i].v]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;N, &amp;M);</span><br><span class="line">    nodeN = (N + <span class="number">1</span>) * (M + <span class="number">1</span>); <span class="comment">//图中总共有(N+1)(M+1)个点</span></span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, str + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (str[j] == <span class="string">'\\'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                add(pos(i, j), pos(i + <span class="number">1</span>, j + <span class="number">1</span>), <span class="number">0</span>), add(pos(i + <span class="number">1</span>, j + <span class="number">1</span>), pos(i, j), <span class="number">0</span>);</span><br><span class="line">                add(pos(i + <span class="number">1</span>, j), pos(i, j + <span class="number">1</span>), <span class="number">1</span>), add(pos(i, j + <span class="number">1</span>), pos(i + <span class="number">1</span>, j), <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (str[j] == <span class="string">'/'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                add(pos(i, j), pos(i + <span class="number">1</span>, j + <span class="number">1</span>), <span class="number">1</span>), add(pos(i + <span class="number">1</span>, j + <span class="number">1</span>), pos(i, j), <span class="number">1</span>);</span><br><span class="line">                add(pos(i + <span class="number">1</span>, j), pos(i, j + <span class="number">1</span>), <span class="number">0</span>), add(pos(i, j + <span class="number">1</span>), pos(i + <span class="number">1</span>, j), <span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dijkstra(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (dis[nodeN] == INT_MAX) <span class="built_in">puts</span>(<span class="string">"NO SOLUTION"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dis[nodeN]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为作者用了常数大的STL priority_queue，而且写得比较烂，这份代码没能AC<del>但是在P2243上AC了</del></p>
+<p>复杂度$O(MN\log MN)$</p>
+<h4 id="text-Algorithm-2"><a href="#text-Algorithm-2" class="headerlink" title="$\text{Algorithm 2}$"></a>$\text{Algorithm 2}$</h4><p>作者也是做了这题才知道还有<strong>双端队列搜索</strong>这种东西</p>
+<p>也就是对一个只带0/1权的图跑单源最短路，可以以线性复杂度完成</p>
+<p>用一个双端队列(STL deque)替代dijkstra中的priority_queue，当$u$松弛$v$时，如果$u-v$这条边的权为$0$，就将$v$放在deque的队首，否则放在队尾，在取出节点时是从队首取出，这样能保证单调性<del>但我不知道为什么</del></p>
+<p>而deque的单次操作复杂度是$O(1)$的</p>
+<p>这样这题就能用$O(MN)$的复杂度做完</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 5000005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INT_MAX 2147483647</span></span><br><span class="line"><span class="keyword">int</span> T, N, M, nodeN;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pos</span><span class="params">(<span class="keyword">int</span> r, <span class="keyword">int</span> c)</span></span>&#123; <span class="keyword">return</span> (r - <span class="number">1</span>) * (M + <span class="number">1</span>) + c; &#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> v, next, k;</span><br><span class="line">&#125;E[MAXN];</span><br><span class="line"><span class="keyword">int</span> Elen, head[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ++Elen, E[Elen].v = v, E[Elen].k = k, E[Elen].next = head[u], head[u] = Elen;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> str[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> vis[MAXN], dis[MAXN];</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, v;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= nodeN; ++i) dis[i] = INT_MAX, vis[i] = <span class="number">0</span>;</span><br><span class="line">    dis[u] = <span class="number">0</span>, Q.push_back(u);</span><br><span class="line">    <span class="keyword">while</span> (!Q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        v = Q.front(), Q.pop_front();</span><br><span class="line">        <span class="keyword">if</span> (vis[v]) <span class="keyword">continue</span>; vis[v] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (i = head[v]; i; i = E[i].next)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (dis[v] + E[i].k &lt; dis[E[i].v])</span><br><span class="line">            &#123;</span><br><span class="line">                dis[E[i].v] = dis[v] + E[i].k;</span><br><span class="line">                <span class="keyword">if</span> (!E[i].k) Q.push_front(E[i].v);</span><br><span class="line">                <span class="keyword">else</span> Q.push_back(E[i].v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;N, &amp;M);</span><br><span class="line">    nodeN = (N + <span class="number">1</span>) * (M + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, str + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (str[j] == <span class="string">'\\'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                add(pos(i, j), pos(i + <span class="number">1</span>, j + <span class="number">1</span>), <span class="number">0</span>), add(pos(i + <span class="number">1</span>, j + <span class="number">1</span>), pos(i, j), <span class="number">0</span>);</span><br><span class="line">                add(pos(i + <span class="number">1</span>, j), pos(i, j + <span class="number">1</span>), <span class="number">1</span>), add(pos(i, j + <span class="number">1</span>), pos(i + <span class="number">1</span>, j), <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (str[j] == <span class="string">'/'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                add(pos(i, j), pos(i + <span class="number">1</span>, j + <span class="number">1</span>), <span class="number">1</span>), add(pos(i + <span class="number">1</span>, j + <span class="number">1</span>), pos(i, j), <span class="number">1</span>);</span><br><span class="line">                add(pos(i + <span class="number">1</span>, j), pos(i, j + <span class="number">1</span>), <span class="number">0</span>), add(pos(i, j + <span class="number">1</span>), pos(i + <span class="number">1</span>, j), <span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    bfs(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (dis[nodeN] == INT_MAX) <span class="built_in">puts</span>(<span class="string">"NO SOLUTION"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dis[nodeN]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="text-Summarize"><a href="#text-Summarize" class="headerlink" title="$\text{Summarize}$"></a>$\text{Summarize}$</h4><p>个人认为</p>
+<p>思维难度 提高-</p>
+<p>实现难度 提高</p>
+<p>学到了双端队列搜索这个奇怪的东西。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/26/题解-HEOI2016-TJOI2016-排序/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1710,7 +1852,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1723,7 +1865,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
