@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="题解,树状数组,线段树,数据结构,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+<meta name="keywords" content="题解,树状数组,线段树,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 [BJOI2018]链上二次求和">
+<meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/12/08/题解-BJOI2018-链上二次求和/index.html">
+<meta property="og:site_name" content="Mr_Wu&#39;s Blog">
+<meta property="og:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-08T06:43:39.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="题解 [BJOI2018]链上二次求和">
+<meta name="twitter:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/wyy603/wyy603.github.io.git/2018/12/08/题解-BJOI2018-链上二次求和/">
+
+
+
+
+
+  <title>题解 [BJOI2018]链上二次求和 | Mr_Wu's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr_Wu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">qwq</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/12/08/题解-BJOI2018-链上二次求和/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">题解 [BJOI2018]链上二次求和</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T14:42:37+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-题面"><a href="#1-题面" class="headerlink" title="1. 题面"></a>1. 题面</h2><p>[BJOI2018]链上二次求和</p>
+<p><a href="https://www.luogu.org/problemnew/show/P4458" target="_blank" rel="noopener">luogu P4458</a></p>
+<p>简述题意：两个操作：</p>
+<ul>
+<li>区间加</li>
+<li>查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和</li>
+</ul>
+<h2 id="2-询问的本质"><a href="#2-询问的本质" class="headerlink" title="2. 询问的本质"></a>2. 询问的本质</h2><p>考虑从长度的角度研究公式</p>
+<p>记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）…</p>
+<p>首先有$s_{i,j}=\sum_{k=1}^{i} {s_{i,j-1}}=s_{i-1,j}+s_{i,j-1}$</p>
+<p>所以</p>
+<script type="math/tex; mode=display">
+\begin {align*}
+
+S(x) &= (\sum_{i=x+1}^{N} {s_{i,1}-s_{i-x,1}}) \\
+
+&= \sum_{i=x}^{N} s_{i,1} - \sum_{i=0}^{N-x} s_{i,1} \\
+
+&= s_{N,2}-s_{x-1,2}-s_{N-x,2}
+
+\end{align*}</script><p>然后</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+
+ans &= \sum_{i=l}^{r} S(i) \\
+
+&= \sum_{i=l}^{r} s_{N,2}-s_{i-1,2}-s_{N-i,2} \\
+
+&= (r-l+1)\times s_{N,2} - \sum_{i=l-1}^{r-1} s_{i,2} - \sum_{i=N-r}^{N-l} {s_{i,2}} \\
+
+&= (r-l+1)\times s_{N,2} - s_{r-1,3} + s_{l-2,3} - s_{N-l,3} + s_{N-r-1,3}
+
+\end{align*}</script><p>这样问题转化为了用一种数据结构维护区间修改，2~3阶前缀和的问题。</p>
+<h2 id="3-算法"><a href="#3-算法" class="headerlink" title="3. 算法"></a>3. 算法</h2><h4 id="3-1-关于k阶前缀和"><a href="#3-1-关于k阶前缀和" class="headerlink" title="3.1 关于k阶前缀和"></a>3.1 关于k阶前缀和</h4><p>列一个表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">原数组</th>
+<th style="text-align:right">$a_1$</th>
+<th>$a_2$</th>
+<th>$a_3$</th>
+<th>$a_4$</th>
+<th>$a_5$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1阶</td>
+<td style="text-align:right">$a_1$</td>
+<td>$a_1+a_2$</td>
+<td>$a_1+a_2+a_3$</td>
+<td>$a_1+a_2+a_3+a_4$</td>
+<td>$a_1+a_2+a_3+a_4+a_5$</td>
+</tr>
+<tr>
+<td style="text-align:right">2阶</td>
+<td style="text-align:right">$a_1$</td>
+<td>$2a_1+a_2$</td>
+<td>$3a_1+2a_2+a_3$</td>
+<td>$4a_1+3a_2+2a_3+a_4$</td>
+<td>$5a_1+4a_2+3a_3+2a_4+a_5$</td>
+</tr>
+<tr>
+<td style="text-align:right">3阶</td>
+<td style="text-align:right">$a_1$</td>
+<td>$3a_1+a_2$</td>
+<td>$6a_1+3a_2+a_3$</td>
+<td>$10a_1+6a_2+4a_3+a_4$</td>
+<td>$15a_1+10a_2+7a_3+3a_4+a_5$</td>
+</tr>
+<tr>
+<td style="text-align:right">4阶</td>
+<td style="text-align:right">$a_1$</td>
+<td>$4a_1+a_2$</td>
+<td>$10a_1+4a_2+a_3$</td>
+<td>$20a_1+10a_2+5a_3+a_4$</td>
+<td>$35a_1+20a_2+12a_3+4a_4+a_5$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>通过人类智慧可以找出规律：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+s_{n,1}&=\sum_{i=1}^{n} a_i \\
+
+s_{n,2}&=\sum_{i=1}^{n} (n-i+1)\times a_i \\
+
+&= (n+1)\times \sum_{i=1}^{n} a_i - \sum_{i=1}^{n} {i\times a_i}  \\
+
+s_{n,3}&=\sum_{i=1}^{n} \frac{(n-i+2)(n-i+1)}{2}\times a_i \\
+
+&= \frac{1}{2} \sum_{i=1}^{n} (i^2-(3+2n)\times i+n^2+3n+2)\times a_i \\
+
+&= \frac{1}{2} (\sum_{i=1}^{n} i^2\times a_i-(3+2n)\sum_{i=1}^{n} i\times a_i + (n^2+3n+2)\sum_{i=1}^{n} a_i) \\
+
+s_{n,4}&=\sum_{i=1}^{n} \frac{(n-i+3)(n-i+2)(n-i+1)}{6}\times a_i \\
+
+&= \frac{1}{6} \sum_{i=1}^{n} (-i^3+(3n+6)i^2-(3n^2+12n+11)i+n^3+6n^2+11n+6)a_i \\
+
+&= \frac{1}{6} (-\sum_{i=1}^{n} i^3\times a_i+(3n+6)\times \sum_{i=1}^{n} {i^2\times a_i} - (3n^2+12n+11)\times \sum_{i=1}^{n} i\times a_i+(n^3+6n^2+11n+6)\times \sum_{i=1}^{n} a_i)
+\end{align*}</script><h4 id="3-2-题目的转化"><a href="#3-2-题目的转化" class="headerlink" title="3.2 题目的转化"></a>3.2 题目的转化</h4><p>我们可以用常数极小的树状数组来进行维护，但树状数组一般情况下修改操作只能是单点。</p>
+<p>于是我们定义差分数组$b$：$b_1=a_1$，对于$i&gt;2$，$b_i=a_i-a_{i-1}$</p>
+<p>然后我们容易发现，当我们将$[l,r]$中的每个数都加$d$时，差分数组只有两端点处发生变化，具体地，</p>
+<script type="math/tex; mode=display">
+b_l\leftarrow b_l+d, b_{r+1}\leftarrow b_{r+1}-d</script><p>而且我们还可以发现</p>
+<script type="math/tex; mode=display">
+a_n=\sum_{i=1}^{n} b_i</script><p>所以我们将差分数组$b$看做原数组，原数组$a$看做一阶前缀和，那么我们实际上要维护：</p>
+<ul>
+<li>单点修改，$b_l\leftarrow b_l+d, b_{r+1}\leftarrow b_{r+1}-d$</li>
+<li>查询$(r-l+1)\times s_{N,3} - s_{r-1,4} + s_{l-2,4} - s_{N-l,4} + s_{N-r-1,4}$，涉及了3~4阶的前缀和。</li>
+</ul>
+<h4 id="3-3-树状数组的维护"><a href="#3-3-树状数组的维护" class="headerlink" title="3.3 树状数组的维护"></a>3.3 树状数组的维护</h4><p>树状数组$\text{(Fenwick Tree)}$，本来是支持$O(\log n)$单点修改，查询区间和或其它满足区间加和区间减的性质的操作的数据结构。</p>
+<p>由3.2推出的式子</p>
+<p>我们维护4个树状数组，分别维护$a_i, i\times a_i, i^2\times a_i, i^3\times a_i$的前缀和，就可以十分高效地维护1~4阶的前缀和。</p>
+<p>因为在修改时需要修改4个树状数组，查询时询问四个树状数组，所以单次操作的复杂度是$O(\log n)$的</p>
+<p>有$m$个操作，所以总复杂度$O(m\log n)$</p>
+<h2 id="4-实现细节"><a href="#4-实现细节" class="headerlink" title="4. 实现细节"></a>4. 实现细节</h2><p><strong>修改操作中，$l&gt;r$的情况是可能出现的。</strong><del>我因为这种情况调了好久</del></p>
+<p>尽量把能模的都模上<del>除非你因为模太多T了</del></p>
+<h2 id="5-参考代码"><a href="#5-参考代码" class="headerlink" title="5. 参考代码"></a>5. 参考代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 500005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 1000000007ll</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b) (((a) &lt; (b)) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) (((a) &gt; (b)) ? (a) : (b))</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(); ll ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">q_pow</span><span class="params">(ll a, ll b, ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) ret = (ret * a) % p;</span><br><span class="line">        a = (a * a) % p;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll a[MAXN], tree[<span class="number">8</span>][MAXN]; <span class="comment">//有tree[1~4]这4棵树状数组</span></span><br><span class="line"><span class="keyword">int</span> N, M;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 树状数组(参数t表示此次操作的树状数组的编号) ------</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &amp; -x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> t, <span class="keyword">int</span> pos, ll k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt;= N) tree[t][pos] = (tree[t][pos] + k) % MOD, pos += lowbit(pos);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="keyword">int</span> t, <span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (pos &gt; <span class="number">0</span>) ret = (ret + tree[t][pos]) % MOD, pos -= lowbit(pos);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 树状数组 ------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(ll pos, ll k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    k %= MOD;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">4</span>; ++i) modify(i, pos, (q_pow(pos, i - <span class="number">1</span>, MOD) * k) % MOD);</span><br><span class="line">&#125; <span class="comment">//单点修改</span></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">ask</span><span class="params">(ll t, ll pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pos &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    ll inv2 = (MOD + <span class="number">1</span>) / <span class="number">2</span>, inv6 = (MOD + <span class="number">1</span>) / <span class="number">6</span>, pos2 = (pos * pos) % MOD, pos3 = (pos2 * pos) % MOD; <span class="comment">//inv2是2的逆元，inv6是6的逆元, pos2=pos^2 % mod, pos3=pos^3 % mod</span></span><br><span class="line">    <span class="keyword">switch</span> (t)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">return</span> query(<span class="number">1</span>, pos);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">return</span> ((((pos + <span class="number">1</span>) * query(<span class="number">1</span>, pos)) % MOD - query(<span class="number">2</span>, pos)) % MOD + MOD) % MOD;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: <span class="keyword">return</span> ((inv2 * (query(<span class="number">3</span>, pos) - ((<span class="number">2</span> * pos + <span class="number">3</span>) % MOD * query(<span class="number">2</span>, pos)) % MOD + ((pos2 + <span class="number">3</span> * pos + <span class="number">2</span>) % MOD * query(<span class="number">1</span>, pos)) % MOD)) % MOD + MOD) % MOD;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>: <span class="keyword">return</span> (inv6 * (-query(<span class="number">4</span>, pos) + ((<span class="number">3</span> * pos + <span class="number">6</span>) % MOD * query(<span class="number">3</span>, pos)) % MOD - ((<span class="number">3</span> * pos2 + <span class="number">12</span> * pos + <span class="number">11</span>) % MOD * query(<span class="number">2</span>, pos)) % MOD + ((pos3 + <span class="number">6</span> * pos2 + <span class="number">11</span> * pos + <span class="number">6</span>) * query(<span class="number">1</span>, pos)) % MOD) + MOD) % MOD; <span class="comment">//这些都是上面说的式子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">    freopen(<span class="string">"input.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    freopen(<span class="string">"output.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    N = read(), M = read();</span><br><span class="line">    <span class="keyword">int</span> i, j, opt;</span><br><span class="line">    ll l, r, t, d, ans;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i] = read();</span><br><span class="line">        change(i, a[i] - a[i - <span class="number">1</span>]); <span class="comment">//我们需要维护差值数组</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (M--)</span><br><span class="line">    &#123;</span><br><span class="line">        opt = read(), l = read(), r = read();</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            d = read();</span><br><span class="line">            <span class="keyword">if</span> (l &gt; r) t = l, l = r, r = t; <span class="comment">//一定要特判。</span></span><br><span class="line">            change(l, d), change(r + <span class="number">1</span>, -d);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans = (r - l + <span class="number">1</span>) * ask(<span class="number">3</span>, N) + ask(<span class="number">4</span>, l - <span class="number">2</span>) + ask(<span class="number">4</span>, N - r - <span class="number">1</span>) - ask(<span class="number">4</span>, r - <span class="number">1</span>) - ask(<span class="number">4</span>, N - l); <span class="comment">//询问的本质</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (ans % MOD + MOD) % MOD);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><ul>
+<li>学习到如何用树状数组维护k阶的前缀和（但这里的k比较小所以式子被提前暴力拆开了）</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/树状数组/" rel="tag"># 树状数组</a>
+          
+            <a href="/tags/线段树/" rel="tag"># 线段树</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/29/题解-电路维修/" rel="next" title="题解: 电路维修">
+                <i class="fa fa-chevron-left"></i> 题解: 电路维修
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256" alt="Mr_Wu">
+            
+              <p class="site-author-name" itemprop="name">Mr_Wu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-题面"><span class="nav-number">1.</span> <span class="nav-text">1. 题面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-询问的本质"><span class="nav-number">2.</span> <span class="nav-text">2. 询问的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-算法"><span class="nav-number">3.</span> <span class="nav-text">3. 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-关于k阶前缀和"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 关于k阶前缀和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-题目的转化"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 题目的转化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-树状数组的维护"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3 树状数组的维护</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实现细节"><span class="nav-number">4.</span> <span class="nav-text">4. 实现细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考代码"><span class="nav-number">5.</span> <span class="nav-text">5. 参考代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-总结"><span class="nav-number">6.</span> <span class="nav-text">6. 总结</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr_Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
