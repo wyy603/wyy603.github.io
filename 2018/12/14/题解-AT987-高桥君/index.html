@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$ 莫队这题需要用普通莫队算法。 我们将每个询问$(n,k)$离线存下来，并用莫队处理区间问题的方法将其分块后排序。（$n$当做左端点，$k$当做右端点） 我们知道要想用莫队算法，就需要知道$(n">
+<meta name="description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$">
 <meta name="keywords" content="数论,题解,莫队,组合数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 AT987 高桥君">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/12/14/题解-AT987-高桥君/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$ 莫队这题需要用普通莫队算法。 我们将每个询问$(n,k)$离线存下来，并用莫队处理区间问题的方法将其分块后排序。（$n$当做左端点，$k$当做右端点） 我们知道要想用莫队算法，就需要知道$(n">
+<meta property="og:description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-14T15:24:03.046Z">
+<meta property="og:updated_time" content="2019-01-19T07:40:55.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 AT987 高桥君">
-<meta name="twitter:description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$ 莫队这题需要用普通莫队算法。 我们将每个询问$(n,k)$离线存下来，并用莫队处理区间问题的方法将其分块后排序。（$n$当做左端点，$k$当做右端点） 我们知道要想用莫队算法，就需要知道$(n">
+<meta name="twitter:description" content="题意$T$个询问，每次询问给出$n,k$，你需要回答  \sum_{i=0}^{k} C_n^i \mod 10^9+7数据范围：$1\le T\le 100000, 0\le n,k\le 100000$">
 
 
 
@@ -327,6 +327,7 @@
         <h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>$T$个询问，每次询问给出$n,k$，你需要回答</p>
 <script type="math/tex; mode=display">
 \sum_{i=0}^{k} C_n^i \mod 10^9+7</script><p>数据范围：$1\le T\le 100000, 0\le n,k\le 100000$</p>
+<a id="more"></a>
 <h4 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h4><p>这题需要用普通莫队算法。</p>
 <p>我们将每个询问$(n,k)$离线存下来，并用莫队处理区间问题的方法将其分块后排序。（$n$当做左端点，$k$当做右端点）</p>
 <p>我们知道要想用莫队算法，就需要知道$(n,k)$的答案和$(n,k+1),(n,k-1),(n-1,k),(n+1,k)$这四种询问的答案的联系。也就是说当前指针指向$(n,k)$时，我们需要$O(1)$地算出上述询问的答案。</p>

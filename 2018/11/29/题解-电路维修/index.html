@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准 $\text{Algorithm 1}$考虑如果不旋转电路元件，容易想到可以将每个点放在图里，并在用电路连接的两个点上连一条双向边，然后dfs/bfs判断连通性 如果旋转电路元件">
+<meta name="description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准">
 <meta name="keywords" content="图论,题解,最短路">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解: 电路维修">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/11/29/题解-电路维修/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准 $\text{Algorithm 1}$考虑如果不旋转电路元件，容易想到可以将每个点放在图里，并在用电路连接的两个点上连一条双向边，然后dfs/bfs判断连通性 如果旋转电路元件">
+<meta property="og:description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T14:53:03.241Z">
+<meta property="og:updated_time" content="2019-01-19T07:41:28.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解: 电路维修">
-<meta name="twitter:description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准 $\text{Algorithm 1}$考虑如果不旋转电路元件，容易想到可以将每个点放在图里，并在用电路连接的两个点上连一条双向边，然后dfs/bfs判断连通性 如果旋转电路元件">
+<meta name="twitter:description" content="$\text{Description}$luogu P2243 电路维修 luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On 后者是前者的加强版，所以下面的讲解以后者为准">
 
 
 
@@ -327,6 +327,7 @@
         <h4 id="text-Description"><a href="#text-Description" class="headerlink" title="$\text{Description}$"></a>$\text{Description}$</h4><p><a href="https://www.luogu.org/problemnew/show/P2243" target="_blank" rel="noopener">luogu P2243 电路维修</a></p>
 <p><a href="https://www.luogu.org/problemnew/show/P4667" target="_blank" rel="noopener">luogu P4667 [BalticOI 2011 Day1]Switch the Lamp On</a></p>
 <p>后者是前者的加强版，所以下面的讲解以后者为准</p>
+<a id="more"></a>
 <h4 id="text-Algorithm-1"><a href="#text-Algorithm-1" class="headerlink" title="$\text{Algorithm 1}$"></a>$\text{Algorithm 1}$</h4><p>考虑如果不旋转电路元件，容易想到可以将每个点放在图里，并在用电路连接的两个点上连一条双向边，然后dfs/bfs判断连通性</p>
 <p>如果旋转电路元件，假设当前要处理的一个正方形是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A     B</span><br><span class="line">   /</span><br><span class="line">C     D (B,C间有电路，如果旋转会使得A,D有电路)</span><br></pre></td></tr></table></figure>

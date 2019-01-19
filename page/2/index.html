@@ -323,47 +323,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>Miller_Rabin算法可以快速判断一个数是不是质数。</p>
 </blockquote>
-<hr>
-<h3 id="一、快速幂-amp-快速乘"><a href="#一、快速幂-amp-快速乘" class="headerlink" title="一、快速幂 &amp; 快速乘"></a>一、快速幂 &amp; 快速乘</h3><p>快速幂：求$a^b \, mod \, p$</p>
-<p>很容易想到暴力方法，直接累计</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">mypow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">    	result = (result * a) % p;</span><br><span class="line">        b--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个做法是线性的，我们有更快的$\log_2$做法。</p>
-<p>考虑到对于$b \equiv 0 (mod \, 2)$有$a^b = (a^2)^{\frac{b}{2}}$</p>
-<p>对于$b \equiv 1 (mod \, 2)$有$a^b = a*(a^2)^{\lfloor \frac{b}{2} \rfloor}$</p>
-<p>我们可以在每次处理时将$a$变为$a^2$，而$b$则变为$\lfloor \frac{b}{2} \rfloor$可将时间降至$\log_2$级别。</p>
-<p>注意如果当前指数为奇数，要先将结果乘上$a$.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">q_pow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result * a) % p;</span><br><span class="line">        a = (a * a) % p;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>快速乘</p>
-<p>（并不能说是快速乘，普通$a \times b\mod{p}$是$O(1)$的，但可能会超出$long\,long$的范围，只能退而求其次，用$O(\log n)$的复杂度乘）</p>
-<p>跟快速幂思想基本相同，不做过多介绍了：</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">q_mul</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> result = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result + a) % p;</span><br><span class="line">		a = (a + a) % p;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="二、Fermat定理"><a href="#二、Fermat定理" class="headerlink" title="二、Fermat定理"></a>二、Fermat定理</h3><p>Fermat定理：如果$p$是素数并且$gcd(a,p)=1$，有</p>
-<script type="math/tex; mode=display">a^{p-1} \equiv 1 (mod \, p)</script><p>用数学归纳法可证明，在这里不做详细证明。</p>
-<p>其逆否命题：如果$a^{p-1} \not \equiv 1 (mod \,p)$且$gcd(a,p)=1$，那么$p$不是素数。</p>
-<p>所以我们可以取随机的$a(0&lt;a&lt;p)$进行<strong>Fermat测试</strong>，如果$a^{p-1} \not \equiv 1 (mod \,p)$可直接判否($100$%)，否则可以继续取下一个$a$进行测试。选一个常数$K$作为次数，如果$p$通过了$K$次Fermat测试，在很大概率上他是素数。</p>
-<p>很不幸的是，有一种数叫做$Carmichael$数，它们是合数且满足Fermat定理的逆定理，所以上述思想对于$Carmichael$数是无效的。前三个$Carmichael$数是$561,1105,1729$。在$[1,100000000]$范围内的整数中，只有$255$个$Carmichael$数。</p>
-<p>Miller_Rabin比上述思想更加优秀，它加入了<strong>二次探测定理</strong>，补上了Fermat测试的缺陷。</p>
-<hr>
-<h3 id="三、二次探测定理"><a href="#三、二次探测定理" class="headerlink" title="三、二次探测定理"></a>三、二次探测定理</h3><p>二次探测定理：对于任意正整数$x$，任意素数$p$，若$x^2 \equiv 1 (mod \, p)$，则$x=1$或$p-1$.</p>
-<p>如何使用该定理？</p>
-<p>我们令$p-1=2^t \times u \, (u \in N)$, 取一随机的$a$满足$(0&lt;a&lt;p)$然后令$X[0]=a^u \mod{p}$</p>
-<p>然后我们递推$t$次，第$i$次操作令$X[i]=X[i-1]^2 \mod{p}$</p>
-<p>根据二次探测定理，若$X[i] = 1$，则$p$是素数的充要条件为$X[i-1]=1$或$X[i-1]=p-1$，不满足则$p$是合数。</p>
-<p>有$X[i]=(a^u)^{2^i} \mod p$, $X[t]=(a^u)^{2^t} \mod p$</p>
-<p>发现$X[t]=a^{p-1} \mod p$，再做一次Fermat测试，便结束一次完整测试。</p>
-<hr>
-<h3 id="四、代码"><a href="#四、代码" class="headerlink" title="四、代码"></a>四、代码</h3><p>下面是参考代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="function">ull <span class="title">q_mul</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ull result = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = (result + a) % p;</span><br><span class="line">		a = (a + a) % p;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ull <span class="title">q_pow</span><span class="params">(ull a, ull b, ull p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ull result = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) result = q_mul(result, a, p);</span><br><span class="line">        a = q_mul(a, a, p);</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Miller_Rabin</span><span class="params">(ull P, ull ROUND)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (P &lt;= <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (P == <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	srand(time(<span class="literal">NULL</span>));</span><br><span class="line">	ull t = <span class="number">0</span>, u = P - <span class="number">1</span>, x, x1;</span><br><span class="line">	<span class="keyword">while</span> (u % <span class="number">2</span> == <span class="number">0</span>) u &gt;&gt;= <span class="number">1</span>, t++;</span><br><span class="line">	<span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= ROUND; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ull a = rand() % (P - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">		x = q_pow(a, u, P);</span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= t; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			x1 = q_mul(x, x, P);</span><br><span class="line">			<span class="keyword">if</span> (x1 == <span class="number">1</span> &amp;&amp; x != <span class="number">1</span> &amp;&amp; x != P - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			x = x1;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (x != <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/18/Miller-Rabin算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -481,7 +450,8 @@
       
         
           
-            <h2 id="text-Day-0"><a href="#text-Day-0" class="headerlink" title="$\text{Day 0}$"></a>$\text{Day 0}$</h2><p>板子都在之前调过了。。所以一直在做题。</p>
+            <a id="more"></a>
+<h2 id="text-Day-0"><a href="#text-Day-0" class="headerlink" title="$\text{Day 0}$"></a>$\text{Day 0}$</h2><p>板子都在之前调过了。。所以一直在做题。</p>
 <p>调了<a href="https://www.luogu.org/problemnew/show/P1941" target="_blank" rel="noopener">P1941 飞扬的小鸟</a>调了差不多一天。。恶心的dp。。</p>
 <h2 id="text-Day-1"><a href="#text-Day-1" class="headerlink" title="$\text{Day 1}$"></a>$\text{Day 1}$</h2><h3 id="8-00-12-30-提高Day1"><a href="#8-00-12-30-提高Day1" class="headerlink" title="$8:00 - 12:30$ 提高Day1"></a>$8:00 - 12:30$ 提高Day1</h3><p>$T1$原题啊。。现在CCF已经自己抄自己了吗。。半小时写完测完大样例就跑了</p>
 <p>$T2$看起来很像大凯的疑惑。。又因为以前有几道数学题和这个差不多，再结合大样例猜了两个不会证的性质：</p>
@@ -655,7 +625,7 @@
       
         
           
-            <h4 id="开始。"><a href="#开始。" class="headerlink" title="开始。"></a>开始。</h4><p>$\sum$</p>
+            <p>hello world.</p>
 
           
         

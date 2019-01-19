@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+<meta name="description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和">
 <meta name="keywords" content="线段树,题解,树状数组,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 [BJOI2018]链上二次求和">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/12/08/题解-BJOI2018-链上二次求和/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+<meta property="og:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-08T06:43:39.195Z">
+<meta property="og:updated_time" content="2019-01-19T07:41:05.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 [BJOI2018]链上二次求和">
-<meta name="twitter:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和  2. 询问的本质考虑从长度的角度研究公式 记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）… 首先有$s_{i,j}">
+<meta name="twitter:description" content="1. 题面[BJOI2018]链上二次求和 luogu P4458 简述题意：两个操作：  区间加 查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和">
 
 
 
@@ -331,6 +331,7 @@
 <li>区间加</li>
 <li>查询长度在$[l,r]$之间的所有区间的权值的和，区间的权值和是区间中所有数的和</li>
 </ul>
+<a id="more"></a>
 <h2 id="2-询问的本质"><a href="#2-询问的本质" class="headerlink" title="2. 询问的本质"></a>2. 询问的本质</h2><p>考虑从长度的角度研究公式</p>
 <p>记$S(i)$表示长度为$i$的所有区间的权值和，$s_{i, 1}$表示序列的前缀和，$s_{i,2}$表示序列的二阶前缀和（前缀和数组的前缀和）…</p>
 <p>首先有$s_{i,j}=\sum_{k=1}^{i} {s_{i,j-1}}=s_{i-1,j}+s_{i,j-1}$</p>

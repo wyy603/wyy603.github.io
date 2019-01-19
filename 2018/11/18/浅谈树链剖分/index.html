@@ -83,19 +83,19 @@
 
 
 
-<meta name="description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个  引入先来一个跟树链剖分无关的问题：给你一棵树，两个操作：  子树权值取反 询问子树权值和  要求一个$O(QlogN)$ 的做法. 这是一个比较简单的题目，你可以对这棵树进行一次dfs，将dfn(dfs序号)记下来，然后会发现一个节点中的子树的记号是在一个区间内的，联想到可以支持区间操作的线段树 于是这个树上操作的问">
+<meta name="description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个">
 <meta name="keywords" content="图论,树链剖分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈树链剖分">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2018/11/18/浅谈树链剖分/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个  引入先来一个跟树链剖分无关的问题：给你一棵树，两个操作：  子树权值取反 询问子树权值和  要求一个$O(QlogN)$ 的做法. 这是一个比较简单的题目，你可以对这棵树进行一次dfs，将dfn(dfs序号)记下来，然后会发现一个节点中的子树的记号是在一个区间内的，联想到可以支持区间操作的线段树 于是这个树上操作的问">
+<meta property="og:description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.luogu.org/upload/pic/35964.png">
-<meta property="og:updated_time" content="2018-11-25T12:21:16.297Z">
+<meta property="og:updated_time" content="2019-01-19T07:40:40.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈树链剖分">
-<meta name="twitter:description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个  引入先来一个跟树链剖分无关的问题：给你一棵树，两个操作：  子树权值取反 询问子树权值和  要求一个$O(QlogN)$ 的做法. 这是一个比较简单的题目，你可以对这棵树进行一次dfs，将dfn(dfs序号)记下来，然后会发现一个节点中的子树的记号是在一个区间内的，联想到可以支持区间操作的线段树 于是这个树上操作的问">
+<meta name="twitter:description" content="前置知识 关于树的一些基本认识之类的qwq 最好掌握搜索，LCA等知识再看这个">
 <meta name="twitter:image" content="https://cdn.luogu.org/upload/pic/35964.png">
 
 
@@ -330,6 +330,7 @@
 <li>关于树的一些基本认识之类的qwq</li>
 <li>最好掌握搜索，LCA等知识再看这个</li>
 </ul>
+<a id="more"></a>
 <h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>先来一个跟树链剖分无关的问题：给你一棵树，两个操作：</p>
 <ol>
 <li>子树权值取反</li>
