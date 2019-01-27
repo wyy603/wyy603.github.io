@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$. 拉格朗日插值如果我们知道$n+1$个点$(x_0, y_0), (x_1, y_1), \cdots, (x_{n}, y_{n})$ 那么由拉格朗日插值，我们有：  f(k)=\sum_{i=0}^{n} y_i\times \prod_{i\n">
+<meta name="description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.">
 <meta name="keywords" content="数论,拉格朗日插值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈拉格朗日插值">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2019/01/26/浅谈拉格朗日插值/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$. 拉格朗日插值如果我们知道$n+1$个点$(x_0, y_0), (x_1, y_1), \cdots, (x_{n}, y_{n})$ 那么由拉格朗日插值，我们有：  f(k)=\sum_{i=0}^{n} y_i\times \prod_{i\n">
+<meta property="og:description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T13:54:46.442Z">
+<meta property="og:updated_time" content="2019-01-27T04:18:22.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈拉格朗日插值">
-<meta name="twitter:description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$. 拉格朗日插值如果我们知道$n+1$个点$(x_0, y_0), (x_1, y_1), \cdots, (x_{n}, y_{n})$ 那么由拉格朗日插值，我们有：  f(k)=\sum_{i=0}^{n} y_i\times \prod_{i\n">
+<meta name="twitter:description" content="所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.">
 
 
 
@@ -335,6 +335,7 @@
 
       
         <p>所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.</p>
+<a id="more"></a>
 <h3 id="拉格朗日插值"><a href="#拉格朗日插值" class="headerlink" title="拉格朗日插值"></a>拉格朗日插值</h3><p>如果我们知道$n+1$个点$(x_0, y_0), (x_1, y_1), \cdots, (x_{n}, y_{n})$</p>
 <p>那么由拉格朗日插值，我们有：</p>
 <script type="math/tex; mode=display">

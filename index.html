@@ -333,34 +333,14 @@
 
       
         
-          
-            <p>所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.</p>
-<h3 id="拉格朗日插值"><a href="#拉格朗日插值" class="headerlink" title="拉格朗日插值"></a>拉格朗日插值</h3><p>如果我们知道$n+1$个点$(x_0, y_0), (x_1, y_1), \cdots, (x_{n}, y_{n})$</p>
-<p>那么由拉格朗日插值，我们有：</p>
-<script type="math/tex; mode=display">
-f(k)=\sum_{i=0}^{n} y_i\times \prod_{i\not=j}\frac{k-x_j}{x_i-x_j}</script><p>随意代入一个点$(x_t, y_t)$，式子变为：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-& f(x_t)=\sum_{i=0}^{n} y_i\times \prod_{i\not=j}\frac{x_t-x_j}{x_i-x_j}\\
-\end{aligned}</script><p>容易想到除了求和中的第$t$项，其它项的分母都会包含$x_t-x_t$，变成0，所以式子变为：</p>
-<script type="math/tex; mode=display">
-f(x_t)=\sum_{t\not=j} y_t\times \frac{x_t-x_j}{x_t-x_j}=y_t</script><p>所以我们知道拉格朗日插值是正确的。</p>
-<h3 id="x坐标连续"><a href="#x坐标连续" class="headerlink" title="x坐标连续"></a>x坐标连续</h3><p>当$x$坐标连续时，我们可以$O(n)$地解决上述问题。</p>
-<p>这里稍微改点东西，知道$n$个点$(x_1, y_1), \cdots, (x_n, y_n)$</p>
-<p>设$x_i=i$，并定义$n!=(-1)\times(-2)\times\cdots\times(n) (n\in \mathbb{N^-})$，例如$(-3)!=(-1)<em>(-2)</em>(-3)=-6$</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&f(k)=\sum_{i=1}^{n} y_i\times \prod_{i\not=j}\frac{k-j}{i-j}\\
-&=\sum_{i=1}^{n} y_i\times \prod_{j=1}^{i-1} \frac{k-j}{i-j}\times \prod_{j=i+1}^{n} \frac{k-j}{i-j}\\
-&=\sum_{i=1}^{n} y_i\times \frac{\prod_{j=1}^{i-1}k-j}{(i-1)*\cdots*1} \times \frac{\prod_{j=i+1}^{n}k-j}{(-1)*(-2)*\cdots*(i-n)} \\
-&= \sum_{i=1}^{n} y_i\times \frac{\prod_{j=1}^{i-1}k-j}{(i-1)!} \times \frac{\prod_{j=i+1}^{n}k-j}{(i-n)!}
-\end{aligned}</script><p>为了将复杂度降低，我们预处理$\sum_{j=1}^{i-1} k-j$和$\sum_{j=i+1}^{n} k-j$的值，一个前缀积，一个后缀积</p>
-<p>然后我们就能$O(n)$地完成</p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="CF622F-The-Sum-of-the-k-th-Powers"><a href="#CF622F-The-Sum-of-the-k-th-Powers" class="headerlink" title="CF622F The Sum of the k-th Powers"></a>CF622F The Sum of the k-th Powers</h4><p>$1\le n\le 10^9, 1\le k\le 10^6$，试求$\sum_{i=1}^{n} i^k$。</p>
-<p>通过数学知识，我们知道$f(n)=\sum_{i=1}^{n} i^k$是一个$k+1$次的关于$n$的多项式。</p>
-<p>所以我们手算出$f(1), f(2), \cdots, f(k+2)$，并$O(n)$地运用拉格朗日插值，复杂度$O(k \log k)$</p>
-
-          
+          <p>所谓拉格朗日插值，实际上就是在知道一个$n$次多项式$f(x)$的$n+1$个点后，以$O(n^2)$的复杂度精确地算出它在某个位置的值$f(k)$.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/26/浅谈拉格朗日插值/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
