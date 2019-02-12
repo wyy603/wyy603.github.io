@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。 大体思路题目相当于">
+<meta name="description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。">
 <meta name="keywords" content="数论,欧拉定理,扩展欧拉定理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 [SP10050]POWTOW-Power Tower City">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2019/02/12/题解-SP10050-POWTOW-Power-Tower-City/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。 大体思路题目相当于">
+<meta property="og:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-12T13:50:15.465Z">
+<meta property="og:updated_time" content="2019-02-12T13:55:11.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 [SP10050]POWTOW-Power Tower City">
-<meta name="twitter:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。 大体思路题目相当于">
+<meta name="twitter:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。">
 
 
 
@@ -337,6 +337,7 @@
         <h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p><a href="https://www.spoj.com/problems/POWTOW/" target="_blank" rel="noopener">SP10050 POWTOW</a></p>
 <h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位</p>
 <p>$e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。</p>
+<a id="more"></a>
 <h4 id="大体思路"><a href="#大体思路" class="headerlink" title="大体思路"></a>大体思路</h4><p>题目相当于求$e\uparrow\uparrow a \pmod {10^9}$</p>
 <p>我们有扩展欧拉定理，对于任意非负整数$a,b$</p>
 <script type="math/tex; mode=display">
