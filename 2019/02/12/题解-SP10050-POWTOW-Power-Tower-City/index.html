@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
 <meta property="og:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-12T13:55:11.043Z">
+<meta property="og:updated_time" content="2019-02-14T13:53:16.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 [SP10050]POWTOW-Power Tower City">
 <meta name="twitter:description" content="题面SP10050 POWTOW 题意$C(0\le C\le 1000)$个询问，每次给$e, a(0\le e,a\le 2147483647)$，求$e\uparrow\uparrow a$，如果不超过9位直接输出，否则输出后9个数位 $e\uparrow\uparrow a= \underbrace {e^{e^{\cdots^e}}} _{a}$，计算方式是从上往下。">
@@ -353,7 +353,7 @@ e\uparrow\uparrow a = \left\{
     \begin{aligned}
         & 1 & a=0 \\
         & e^{e\uparrow\uparrow(a-1)} & a>0 \text{ and } e\uparrow\uparrow(a-1)<\varphi(p) \\
-        & e^{e\uparrow\uparrow(a-1)\mod \varphi(p) + \varphi(p)} & a>0 \text{ and } e\uparrow\uparrow(a-1)<\varphi(p) \\
+        & e^{e\uparrow\uparrow(a-1)\mod \varphi(p) + \varphi(p)} & a>0 \text{ and } e\uparrow\uparrow(a-1)\ge\varphi(p) \\
     \end{aligned}
 \right.
 \end{aligned} \pmod p</script><p>我们发现这可以写成一个递归形式(e,a,p)-&gt;(e,a-1,phi(p))，模数每次从$p$变成$\varphi(p)$，经过试验我们发现$10^9$一直取欧拉函数只需要27次就能取到1，所以计算一个询问所需最多27次递归。</p>
