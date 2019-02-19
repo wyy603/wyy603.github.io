@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
 <meta property="og:description" content="题面CF1114F 题意给一序列$\{a\}$，要求支持两个操作：  MULTIPLY l r x 对每个$l\le i\le r$执行$a_i\leftarrow a_i\times x$ TOTIENT l r 询问$\varphi(\prod_{i=l}^{r} a_i) \mod 10^9+7$  $1\le n\le 4\times 10^5, 1\le q\le 2\times 10^">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-19T01:58:49.553Z">
+<meta property="og:updated_time" content="2019-02-19T02:00:25.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 CF1114F Please, another Queries on Array?">
 <meta name="twitter:description" content="题面CF1114F 题意给一序列$\{a\}$，要求支持两个操作：  MULTIPLY l r x 对每个$l\le i\le r$执行$a_i\leftarrow a_i\times x$ TOTIENT l r 询问$\varphi(\prod_{i=l}^{r} a_i) \mod 10^9+7$  $1\le n\le 4\times 10^5, 1\le q\le 2\times 10^">
@@ -373,6 +373,7 @@
 <li>TOTIENT l r 询问$\varphi(\prod_{i=l}^{r} a_i) \mod 10^9+7$</li>
 </ol>
 <p>$1\le n\le 4\times 10^5, 1\le q\le 2\times 10^5, 1\le a_i\le 300, 1\le x\le 300$</p>
+<a id="more"></a>
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>一开始实际上是想用线段树维护区间乘积，然后每次询问的时候计算欧拉函数，但这样区间乘积就不能模，就很麻烦。</p>
 <p>考虑把这个欧拉函数拆开，设质因数分解式$\prod_{i=l}^{r} a_i=\prod_{j=1}^{m} p_j^{k_j}$，$p_j$是质数，$k_j\ge 1$</p>
 <script type="math/tex; mode=display">
