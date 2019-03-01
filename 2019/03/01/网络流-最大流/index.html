@@ -93,7 +93,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.luogu.org/upload/pic/52979.png">
 <meta property="og:image" content="https://cdn.luogu.org/upload/pic/52978.png">
-<meta property="og:updated_time" content="2019-03-01T14:56:58.477Z">
+<meta property="og:updated_time" content="2019-03-01T14:59:11.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络流: 最大流">
 <meta name="twitter:description" content="什么是网络流假设我们有一个有向图$G=\{V, E\}$，然后我们现在给每条边都加上一个非负边权$c$，我们把这个边权叫做这条边的容量。一条边$(u,v)$的容量用$c(u,v)$表示。此时这个有向图就变成了网络流。 对一条边$(u,v)$，我们会记录$f(u,v)$表示这条边的流量。注意流量和容量是不同的，流量表示从这条边流过去的量的大小，而容量表示最大流过去多少。 源点 S：我们将会从这个点往">
@@ -356,6 +356,7 @@
 <li>$0\le f(u,v)\le c(u,v)$。原因：容量会限制流量的大小。</li>
 <li>对每个非源点、汇点的节点$u$，有$\sum f(u,v) = \sum f(v,u)$，这是因为流量不会在这个节点消失，从一个地方流过来就一定会等量地流出。</li>
 </ol>
+<a id="more"></a>
 <h2 id="最大流-Maxinum-Flow"><a href="#最大流-Maxinum-Flow" class="headerlink" title="最大流 ( Maxinum Flow )"></a>最大流 ( Maxinum Flow )</h2><p>问题：源点有无限流量，找到一种方案，使得流到汇点的流量尽量多。</p>
 <p>例如这一个网络流(T=5)：</p>
 <p><img src="https://cdn.luogu.org/upload/pic/52979.png" alt=""></p>
