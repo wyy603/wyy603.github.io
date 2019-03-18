@@ -263,6 +263,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2018/11/11/NOIP2018-游记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/11/NOIP2018-游记/" itemprop="url">NOIP2018 游记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T21:01:19+08:00">
+                2018-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OI/" itemprop="url" rel="index">
+                    <span itemprop="name">OI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/11/NOIP2018-游记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/11/NOIP2018-游记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h2 id="text-Day-0"><a href="#text-Day-0" class="headerlink" title="$\text{Day 0}$"></a>$\text{Day 0}$</h2><p>板子都在之前调过了。。所以一直在做题。</p>
+<p>调了<a href="https://www.luogu.org/problemnew/show/P1941" target="_blank" rel="noopener">P1941 飞扬的小鸟</a>调了差不多一天。。恶心的dp。。</p>
+<h2 id="text-Day-1"><a href="#text-Day-1" class="headerlink" title="$\text{Day 1}$"></a>$\text{Day 1}$</h2><h3 id="8-00-12-30-提高Day1"><a href="#8-00-12-30-提高Day1" class="headerlink" title="$8:00 - 12:30$ 提高Day1"></a>$8:00 - 12:30$ 提高Day1</h3><p>$T1$原题啊。。现在CCF已经自己抄自己了吗。。半小时写完测完大样例就跑了</p>
+<p>$T2$看起来很像大凯的疑惑。。又因为以前有几道数学题和这个差不多，再结合大样例猜了两个不会证的性质：</p>
+<ul>
+<li><p>答案的序列是给出序列的子序列</p>
+</li>
+<li><p>$x$能被表示当且仅当$x-a_1, x-a_2, .., x-a_n$至少一个能被表示。</p>
+</li>
+</ul>
+<p>于是一开始是针对$50$%的部分分：$O(T\times 2^n\times n\times \max{a_i})$，$2^n$是枚举给出序列的子序列，用$O(n\times max{a_i})$的复杂度将一个$vis[]$数组写出来，$vis[i]$表示$i$是否能被表示（这里因为感觉不稳就把上界调到了$n\times \max{a_i}$，反正部分分比较小就瞎搞。。），并与原序列能表示的数匹配，如果匹配成功$ans=min(ans, tans)$，$tans$是这个子序列的长度。</p>
+<p>弄完之后感觉没啥可优化的。。就去看T3</p>
+<p>啊T3是什么玩意。。感觉是树上dp，二分之类的，但碰巧我都不会。。于是就看部分分。</p>
+<p>啊好像$M=1$，菊花图，链都比较可做。。于是就开了3个namespace，打完$M=1$的部分分后发现链的部分分似乎并不会做，又想了一个奇怪的贪心来做菊花图的部分分（这个贪心后来被发现是完全错误的），导致才写了两档部分分还有一档不稳。。</p>
+<p>于是只好回来看T2。。准备对$n&gt;5$的东西做玄学判定，又发现一个不会证的性质：</p>
+<ul>
+<li>当$a_i$可被表示时，它是一定会被删除的，而且不能被表示的$a_i$就一定不会删除</li>
+</ul>
+<p>于是先用$O(n^3loga_i)$的复杂度筛掉了能被两个序列中的数表示的$a_i$，剩下的准备用刚才的算法。看起来总复杂度会变的比较玄学。</p>
+<p>然后突然发现：判断一个$a_i$能否被表示，是能直接$n\times \max{a_i}$的复杂度用刚才的算法扫的。。</p>
+<p>于是就写出了最后交上去的$O(Tn^2\times \max{a_i})$的代码。。</p>
+<p>写完之后大概还有半小时，旁边的大佬直接提前离场了orz</p>
+<p>剩下半小时就是各种测试。。T3也不会。。</p>
+<p>最后大概就是这样了。。</p>
+<p>预估分数：$100+80+20=200$</p>
+<p>洛谷自测分数：$100+95+20=215$</p>
+<p>大概遗憾就是T3部分分没拿好。。</p>
+<h2 id="text-Day-2"><a href="#text-Day-2" class="headerlink" title="$\text{Day 2}$"></a>$\text{Day 2}$</h2><h3 id="8-00-12-30-提高Day2"><a href="#8-00-12-30-提高Day2" class="headerlink" title="$8:00 - 12:30$ 提高Day2"></a>$8:00 - 12:30$ 提高Day2</h3><p>爆炸的一天</p>
+<p>先看$T1$，发现用邻接矩阵可能更好做一些，于是采用了邻接矩阵搜索，$O(nm)$过了$m=n-1$的部分，然后做了做感觉存在一条边使得砍掉这条边不影响答案，于是$O(nm^2)$写了$m=n$的部分</p>
+<p>然后大概用了10几分钟想了想觉得并没有什么可以优化的地方，就去看$T2$</p>
+<p>$T2$第一眼感觉是状压dp，真巧我状压dp不会。。于是就打$n=2$的部分分</p>
+<p>暴力发现规律当$n=2$时$ans=4\times 3^{m-1}$，于是把这个式子打上去，顺便把样例全都放进了程序里期望骗分。。但我手残把$n,m$换了，考完后发现好像不能换。。。</p>
+<p>看$T3$的时候看错题意，看成相邻节点只能有一个节点驻扎兵力。。还只打了链的暴力，后来才发现题意看错了，不过没法改了。。</p>
+<p>打完$T3$的暴力错解后又回去把$T1$的$m=n$的部分优化成了$O(n(n+m))$。。然后又回来想$T3$其它部分分的解法因为我认为自己做不出$T2$的dp。。就这么丧失了$T2$推式子的机会</p>
+<p>考完后听说$T2$答案是一个式子。。为什么我没有继续试下去啊orz</p>
+<p>预估分数：$100+50+0=150$</p>
+<p>总分预估：$100+80+20+100+50+0=350$ 凉凉（</p>
+<h3 id="14-30"><a href="#14-30" class="headerlink" title="$14:30$"></a>$14:30$</h3><p>突然发现$D1T2$只要有相同的数我就会把它们一起消掉。。比如输入$3,5,5$就输出$1$，估计要凉了。。希望noip的数据良心一点orzorz</p>
+<p>现在总分预估大概是270+(0~80)</p>
+<p>orzorz</p>
+<h2 id="text-Day-5"><a href="#text-Day-5" class="headerlink" title="$\text{Day 5}$"></a>$\text{Day 5}$</h2><h3 id="18-00"><a href="#18-00" class="headerlink" title="$18:00$"></a>$18:00$</h3><p>BJ源代码发出来了qwq放洛谷上测一下</p>
+<p>$100+95+25+68+55+0=343$</p>
+<p>D2T1没开两倍邻接表100-&gt;68（</p>
+<h3 id="18-30"><a href="#18-30" class="headerlink" title="$18:30$"></a>$18:30$</h3><p>发现D1T2第一句：在网友的国度中共有$n​$种不同面额的货币</p>
+<p>太棒了qwq</p>
+<p>大概分数就是luogu估分了吧（？）</p>
+<h2 id="text-Day-10"><a href="#text-Day-10" class="headerlink" title="$\text{Day 10}$"></a>$\text{Day 10}$</h2><p>n天前：CCF: 今天上午8:00出成绩</p>
+<p>上午8:00： CCF: 今天下午5:00出成绩</p>
+<p>下午5:00： CCF: 明天上午8:00一定出成绩！</p>
+<p>（</p>
+<h2 id="text-Day-11"><a href="#text-Day-11" class="headerlink" title="$\text{Day 11}$"></a>$\text{Day 11}$</h2><p><img src="https://i.niupic.com/images/2018/11/24/5AFD.png" alt=""></p>
+<p>$100+80+20+68+50+0=318$</p>
+<p>CCF数据毒瘤了orz 现在1=好像很不稳</p>
+<h2 id="text-Day-N"><a href="#text-Day-N" class="headerlink" title="$\text{Day N}$"></a>$\text{Day N}$</h2><p>BJ一等分数线300海星</p>
+<p>还以为自己拿不了1=了QAQ</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/1000/01/01/start/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -454,7 +661,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -476,7 +683,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
