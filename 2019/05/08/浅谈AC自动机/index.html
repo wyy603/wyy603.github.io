@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AC自动机,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AC 自动机AC 自动机是一种多模匹配算法。 给文本串 $T$ 和若干文本串 $S_i$，在 $O(|T|+\sum |S_i|)$ 的复杂度内解决一些匹配问题，例如每个 $S_i$ 在文本串中的出现次数。 实际上它的用处不仅限于多模匹配，它是一个带着 fail 的 Trie 树，而 fail 是跳到一个与后缀相同的模式串，这个形式使得它能解决许多“大串匹配小串”的问题。">
+<meta name="keywords" content="AC自动机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈AC自动机">
+<meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2019/05/08/浅谈AC自动机/index.html">
+<meta property="og:site_name" content="Mr_Wu&#39;s Blog">
+<meta property="og:description" content="AC 自动机AC 自动机是一种多模匹配算法。 给文本串 $T$ 和若干文本串 $S_i$，在 $O(|T|+\sum |S_i|)$ 的复杂度内解决一些匹配问题，例如每个 $S_i$ 在文本串中的出现次数。 实际上它的用处不仅限于多模匹配，它是一个带着 fail 的 Trie 树，而 fail 是跳到一个与后缀相同的模式串，这个形式使得它能解决许多“大串匹配小串”的问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.niupic.com/images/2019/05/08/6lB2.png">
+<meta property="og:image" content="https://i.niupic.com/images/2019/05/08/6lB3.png">
+<meta property="og:image" content="https://i.niupic.com/images/2019/05/08/6lB4.png">
+<meta property="og:image" content="https://i.niupic.com/images/2019/05/08/6lB7.png">
+<meta property="og:image" content="https://i.niupic.com/images/2019/05/08/6lB7.png">
+<meta property="og:updated_time" content="2019-05-08T12:30:20.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈AC自动机">
+<meta name="twitter:description" content="AC 自动机AC 自动机是一种多模匹配算法。 给文本串 $T$ 和若干文本串 $S_i$，在 $O(|T|+\sum |S_i|)$ 的复杂度内解决一些匹配问题，例如每个 $S_i$ 在文本串中的出现次数。 实际上它的用处不仅限于多模匹配，它是一个带着 fail 的 Trie 树，而 fail 是跳到一个与后缀相同的模式串，这个形式使得它能解决许多“大串匹配小串”的问题。">
+<meta name="twitter:image" content="https://i.niupic.com/images/2019/05/08/6lB2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/wyy603/wyy603.github.io.git/2019/05/08/浅谈AC自动机/">
+
+
+
+
+
+  <title>浅谈AC自动机 | Mr_Wu's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr_Wu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">qwq</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2019/05/08/浅谈AC自动机/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈AC自动机</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T20:29:19+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OI/" itemprop="url" rel="index">
+                    <span itemprop="name">OI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/08/浅谈AC自动机/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/08/浅谈AC自动机/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="AC-自动机"><a href="#AC-自动机" class="headerlink" title="AC 自动机"></a>AC 自动机</h2><p>AC 自动机是一种多模匹配算法。</p>
+<p>给文本串 $T$ 和若干文本串 $S_i$，在 $O(|T|+\sum |S_i|)$ 的复杂度内解决一些匹配问题，例如每个 $S_i$ 在文本串中的出现次数。</p>
+<p>实际上它的用处不仅限于多模匹配，它是一个带着 fail 的 Trie 树，而 fail 是跳到一个与后缀相同的模式串，这个形式使得它能解决许多“大串匹配小串”的问题。</p>
+<a id="more"></a>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>像上面陈述的一样，你需要会用 Trie 树。</p>
+<p>你可能并不需要会用 kmp，虽然很多人说 AC 自动机 = Trie 树 + kmp 思想。</p>
+<h2 id="建立一个-AC-自动机"><a href="#建立一个-AC-自动机" class="headerlink" title="建立一个 AC 自动机"></a>建立一个 AC 自动机</h2><p>AC 自动机首先是一颗 Trie 树。树里存所有模式串。所以一开始我们把所有模式串一个一个加进去。</p>
+<p>举个例子，模式串为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abc</span><br><span class="line">bcd</span><br><span class="line">abcd</span><br><span class="line">bc</span><br><span class="line">bce</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.niupic.com/images/2019/05/08/6lB2.png" alt=""></p>
+<p>然后来建 fail</p>
+<p>fail 可以被看做是一条边，也可以看做一个指针，如果 fail[u]=v，那么从 0 到 v 这一段的串一定是从 0 到 u 这一段串的后缀。这个后缀要尽量长。</p>
+<p>这样的定义对 AC 自动机的匹配有用处。</p>
+<p>例如 4 号节点的 fail 就是 7 号节点，因为 0-7 这一段是 “bcd”，为 “abcd”的后缀。</p>
+<p>如何求 fail 呢？</p>
+<p>假设我们要求 4 号节点的 fail，我们看到 3 号节点的 fail 是 6，因为 “bc” 是 “abc” 的后缀。那么 “bc” 加上一个 “d”， “abc” 也加上一个 “d”，此时 “bcd” 是 “abcd” 的后缀，届时就能求出 4 号节点的 fail 了！</p>
+<p>所以我们找到 3 号节点的 fail 为 6，然后找 6 有没有字符为 “d” 的儿子，找到了 7，于是 fail[4]=7.</p>
+<p>你已经看出来了，我们的策略是，对每个 u 找 fail[fa[u]]，然后看这个节点是否有与 ch[u] （u 节点代表的字符） 字符相同的儿子，如果有那么就把 fail[u] 指向这个儿子。</p>
+<p>如果找不到字符相同的儿子呢？我们找 fail[fa[u]] 的父亲的 fail，然后继续看有没有与 ch[u] 字符相同的儿子，如果没有就再往上跳类推.. 正确性请自行证明。</p>
+<p>当然前提是我们知道 fa[u] 的 fail，由于这个性质我们想到用广搜实现这个过程。</p>
+<p>先拿上面的图手模一遍：</p>
+<p>第一次将 1, 5 的 fail 设为 0，并压入队列。</p>
+<p><img src="https://i.niupic.com/images/2019/05/08/6lB3.png" alt=""></p>
+<p>第二次 1 出队，去看 1 的儿子 2，然后去找 fail[fa[2]] 也就是 fail[1] 也就是 0，发现 0 有一个字符为 “b” 的儿子为 5，于是 fail[2]=5，并将 5 压入队。</p>
+<p>5 出队，fail[5]=0，发现 5 并没有字符为 “c” 的儿子，所以 fail[6]=0，6 入队。</p>
+<p><img src="https://i.niupic.com/images/2019/05/08/6lB4.png" alt=""></p>
+<p>第三次 2 出队，fail[2]=5, 5 有个字符为 “c” 的儿子是 6，于是 fail[3]=6，3 入队。</p>
+<p>6 出队，fail[6]=0，不存在字符为 “d”,”e” 的儿子，于是 fail[7]=fail[8]=0.</p>
+<p>第四次 3 出队，fail[3]=6, 找到 7，于是 fail[4]=7.</p>
+<p>综上所述，建完 fail 的 AC 自动机如下：</p>
+<p><img src="https://i.niupic.com/images/2019/05/08/6lB7.png" alt=""></p>
+<p>建 fail 便是如此，下面请看一个实现代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trie</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> son[<span class="number">27</span>], fail, end;</span><br><span class="line">&#125; AC[MAXS]; <span class="keyword">int</span> AClen;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">char</span>* S)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, L = <span class="built_in">strlen</span>(S + <span class="number">1</span>), p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= L; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!AC[p].son[S[i] - <span class="string">'A'</span>]) AC[p].son[S[i] - <span class="string">'A'</span>] = ++AClen;</span><br><span class="line">        p = AC[p].son[S[i] - <span class="string">'A'</span>];</span><br><span class="line">    &#125; ++AC[p].end;</span><br><span class="line">&#125; <span class="comment">// Trie 插入操作</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_fail</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, u; AC[<span class="number">0</span>].fail = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; SIZ; ++i) <span class="keyword">if</span> (AC[<span class="number">0</span>].son[i]) AC[AC[<span class="number">0</span>].son[i]].fail = <span class="number">0</span>, Q.push(AC[<span class="number">0</span>].son[i]); <span class="comment">// 第一层最好还是特判一下。</span></span><br><span class="line">    <span class="keyword">while</span> (!Q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        u = Q.front(), Q.pop();</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; SIZ; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (AC[u].son[i]) AC[AC[u].son[i]].fail = AC[AC[u].fail].son[i], Q.push(AC[u].son[i]); <span class="comment">//找 fail[u] 的字符与 son[i] 相同的儿子，并记为 son[i] 的 fail. 在这里  u 是父亲，son[i] 是儿子。</span></span><br><span class="line">            <span class="keyword">else</span> AC[u].son[i] = AC[AC[u].fail].son[i];</span><br><span class="line">            <span class="comment">// 上文说：“如果找不到字符相同的儿子呢？我们找 fail[fa[u]] 的父亲的 fail，然后继续看有没有与 ch[u] 字符相同的儿子，如果没有就再往上跳类推.. ”</span></span><br><span class="line">            <span class="comment">// 但暴跳是很耗复杂度的，考虑一个 p 通过 fail[p] 找到了 AC[u].son[i]，但这个 son 是没有的，此时将没有的 AC[u].son[i] 设为 AC[AC[u].fail].son[i]，正是完成了上述的跳 fail 的过程，通过记录减少了复杂度。</span></span><br><span class="line">            <span class="comment">// 这样会破坏 Trie 树的性质，但这种补为 Trie 图的方法在匹配时是必要的。需要保留 Trie 树的性质的题目还没见过。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>在建完的 Trie 图上走。</p>
+<p>将文本串从第一个字符到最后一个字符遍历一遍，并让一个在 Trie 图上的指针跟着字符串走。</p>
+<p>每到一个节点便不停跳 fail，如果跳到一个有 end 符（是某一个模式串的尾），便记录一些答案。</p>
+<p>例如文本串 T=”abcde”. 设 i 为遍历这个文本串的指针（位置），p 为在 AC 自动机上的指针。一开始p=0。</p>
+<p>（模式串是上面的例子）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abc</span><br><span class="line">bcd</span><br><span class="line">abcd</span><br><span class="line">bc</span><br><span class="line">bce</span><br></pre></td></tr></table></figure>
+<p>i=1时，p 走到 1（与 T[i] 有相同字符的儿子），然后 fail[p]=0，什么也没有找到。</p>
+<p>i=2时，p 从 1 走到 2 （与 T[i] 有相同字符的儿子），fail[p]=1,fail[1]=0，所以跳 fail 跳了 2,1,0，但都不是某模式串尾部，所以什么也没找到。</p>
+<p>i=3时，p 从 2 到 3， 3 是 “abc” 的尾部，记录（记录 “abc” 出现过（或者记录其它信息）），然后跳 fail 跳到 6，发现 6 是 “bc” 的尾部，记录。然后跳到 0.</p>
+<p>i=4时，p 从 3 到 4，4 跳 fail 的过程是 4,7,0，4,7 分别是 “abcd” 和 “bcd” 的尾部，记录。</p>
+<p>i=5时，在 Trie 图中 4 的字符为 “d” 的儿子为 0，于是走到 0，什么也没找到。</p>
+<p>结束匹配。得到有 4 个模式串出现过。</p>
+<p>那么为什么每到一个节点就跳 fail 并记录带 end 的答案就是正确的呢？因为这样对所有的 i，都将所有为 T[1~i] 的后缀的模式串记录了一遍，这就相当于找到了所有在 T 中出现过的子串。</p>
+<p>代码实现：<a href="https://www.luogu.org/problemnew/show/P3808" target="_blank" rel="noopener">【模板】 AC 自动机 （简单）</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">query</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, p = <span class="number">0</span>, len = <span class="built_in">strlen</span>(T + <span class="number">1</span>); <span class="comment">// T 是文本串，下标从 1 开始。</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        p = AC[p].son[T[i] - <span class="string">'a'</span> + <span class="number">1</span>]; <span class="comment">//走到与 T[i] 有相同字符的儿子</span></span><br><span class="line">        <span class="keyword">for</span> (j = p; j &amp;&amp; AC[j].end != <span class="number">-1</span>; j = AC[j].fail) <span class="comment">// 不停跳 fail</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans += AC[j].end;</span><br><span class="line">            AC[j].end = <span class="number">-1</span>; <span class="comment">//这两步的意思是标记这里有模式串匹配成功，为了避免模式串多次出现而增加答案，将 end 标记取消。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>P.S. 这样跳 fail 的复杂度实际上比较暴力，所以你可以设 Las[i] 表示从 i 节点不停跳 fail，跳到的第一个有 end 标记的 节点。这样可以将复杂度降至线性而不是一个奇怪的跳 fail 的复杂度。</p>
+<h2 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h2><h3 id="【模板】AC-自动机-（加强）"><a href="#【模板】AC-自动机-（加强）" class="headerlink" title="【模板】AC 自动机 （加强）"></a>【模板】AC 自动机 （加强）</h3><h4 id="题面-amp-题意"><a href="#题面-amp-题意" class="headerlink" title="题面 &amp; 题意"></a>题面 &amp; 题意</h4><p><a href="https://www.luogu.org/problemnew/show/P3796" target="_blank" rel="noopener">Luogu P3796</a></p>
+<p>找出现次数最多的模式串。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>跳 fail 时对 end 指向的模式串更新答案。</p>
+<p>最后取一遍 max.</p>
+<h3 id="POI-2000-病毒"><a href="#POI-2000-病毒" class="headerlink" title="[POI 2000] 病毒"></a>[POI 2000] 病毒</h3><h4 id="题面-amp-题意-1"><a href="#题面-amp-题意-1" class="headerlink" title="题面 &amp; 题意"></a>题面 &amp; 题意</h4><p><a href="https://www.luogu.org/problemnew/show/P2444" target="_blank" rel="noopener">Luogu P2444</a></p>
+<p>询问是否存在一个无限长文本串使得不存在出现的模式串。</p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>假设有一个这样的文本串，模拟其在 AC 自动机中的走路过程。</p>
+<p>考虑其不匹配任何模式串，那么在某一时刻它一定是在一个环里走，并且环上的节点都拥有性质：不停跳 fail 跳不到有 end 符的。</p>
+<p>所以将满足上述性质的节点记录下来，并找是否存在一个环即可。</p>
+<p>找环有一个经典方法是打两个颜色的标记。</p>
+<h2 id="Fail-树"><a href="#Fail-树" class="headerlink" title="Fail 树"></a>Fail 树</h2><p>只考虑 fail 边，它们组成了一棵树。</p>
+<p><img src="https://i.niupic.com/images/2019/05/08/6lB7.png" alt=""></p>
+<p>比方说这张图，只考虑橙色的边，形成了一棵以 0 为根的树。</p>
+<h2 id="一些例题-1"><a href="#一些例题-1" class="headerlink" title="一些例题"></a>一些例题</h2><h3 id="TJOI-2013-单词"><a href="#TJOI-2013-单词" class="headerlink" title="[TJOI 2013] 单词"></a>[TJOI 2013] 单词</h3><h4 id="题面-amp-题意-2"><a href="#题面-amp-题意-2" class="headerlink" title="题面 &amp; 题意"></a>题面 &amp; 题意</h4><p><a href="https://www.luogu.org/problemnew/show/P3966" target="_blank" rel="noopener">Luogu P3966</a></p>
+<p>给 $n$ 个串 $S_i$，并生成一个 $T$，$T$ 的生成方式：依次加入 $S_i$，并加入一个空格。</p>
+<p>求每个 $S_i$ 在 $T$ 中的出现次数</p>
+<h4 id="解-1"><a href="#解-1" class="headerlink" title="解 1"></a>解 1</h4><p>拼出 $T$，然后跑 AC 自动机。</p>
+<p>不能暴力跳 fail，需要优化（Lst[u] 表示不停跳 fail 跳到的最近的有 end 符的节点）</p>
+<p>时间比较紧，不如解 2 优秀。</p>
+<h4 id="解-2"><a href="#解-2" class="headerlink" title="解 2"></a>解 2</h4><p>重新定义题目：对每个 $S_i$，记录 $f(x)$ 表示其在 $S_x$ 中的出现次数，并求 $\sum_{x=1}^n f(x)$.</p>
+<p>$f(x)$ 等于 $S_x$ 上不停跳 fail 能跳到 $End[S_i]$ 的节点的个数。这么算是因为我们对所 $S_x$ 上所有节点 $j$ 都询问了 $S_i$ 是否是 $S_x[1-j]$的后缀，这样就能算 $f(x)$.</p>
+<p>那么 $S_i$ 的答案就是整个 Trie 图上不停跳 fail 能跳到 $End[S_i]$ 的节点的个数。</p>
+<p>考虑 fail 树，发现 $S_i$ 的答案正是其在 fail 树中的子树大小。</p>
+<h3 id="NOI-2011-阿狸的打字机"><a href="#NOI-2011-阿狸的打字机" class="headerlink" title="[NOI 2011] 阿狸的打字机"></a>[NOI 2011] 阿狸的打字机</h3><h4 id="题面-amp-题意-3"><a href="#题面-amp-题意-3" class="headerlink" title="题面 &amp; 题意"></a>题面 &amp; 题意</h4><p><a href="https://www.luogu.org/problemnew/show/P2414" target="_blank" rel="noopener">Luogu P2414</a></p>
+<p>给一串 $T$，按照下列规律生成小串：</p>
+<ul>
+<li>设一空串 $X$，并从 $T$ 的第一个字符遍历到最后一个：</li>
+<li>遍历到小写字符，则在 $X$ 末尾加上它</li>
+<li>遍历到 ‘B’，去掉 $X$ 末尾字符</li>
+<li>遍历到 ‘P’，增加一个小串为 $S_i=X$，不清空 $X$.</li>
+</ul>
+<p>然后给 $M$ 个询问，给 $x,y$，问 $S_x$ 在 $S_y$ 中的出现次数。</p>
+<h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><p>不难发现生成小串的方式十分适合构建 AC 自动机。</p>
+<p>根据上一道题，$S_x$ 在 $S_y$ 中的出现次数为 $S_y$ 上不停跳 fail 能跳到 $i$ 的节点的个数。</p>
+<p>于是根据经验考虑 fail 树，发现一个询问等价于询问 $End[S_x]$ 的子树中有多少节点是 $S_y$ 上的字符。</p>
+<p>离线处理所有询问，以 $y$ 为关键字排序。在回答询问时再走一遍串 $T$ 的生成，每加入一个节点就在树状数组上单点+1，删除一个节点就在树状数组上单点-1，回答时询问一个区间和。当然要用 dfn 映射。</p>
+<h2 id="AC-自动机上-dp"><a href="#AC-自动机上-dp" class="headerlink" title="AC 自动机上 dp"></a>AC 自动机上 dp</h2><p>一般会有某种 dp 题目给你模式串，让你求是否存在文本串 / 多少文本串 / 求出文本串 使得其满足某种与模式串相关的要求。</p>
+<p>一般都设 $dp_{i,j}$ 表示文本串匹配到第 $i$ 个字符，AC 自动机上走到了 $j$，并枚举儿子进行计算。</p>
+<p>这样就能模拟文本串的匹配过程。</p>
+<h2 id="一些例题-2"><a href="#一些例题-2" class="headerlink" title="一些例题"></a>一些例题</h2><h3 id="BJOI-2019-奥术神杖"><a href="#BJOI-2019-奥术神杖" class="headerlink" title="[BJOI 2019] 奥术神杖"></a>[BJOI 2019] 奥术神杖</h3><p><a href="https://wyy603.github.io/2019/05/07/%E9%A2%98%E8%A7%A3-BJOI2019-%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/" target="_blank" rel="noopener">题解</a></p>
+<h3 id="JSOI-2007-文本生成器"><a href="#JSOI-2007-文本生成器" class="headerlink" title="[JSOI 2007] 文本生成器"></a>[JSOI 2007] 文本生成器</h3><h4 id="题面-amp-题意-4"><a href="#题面-amp-题意-4" class="headerlink" title="题面 &amp; 题意"></a>题面 &amp; 题意</h4><p>求多少文本串 $T$ 满足存在 $S_i$ 在 $T$ 中出现过。</p>
+<h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>先容斥，答案为 $26^M - k$，$k$ 为 没有匹配的文本串 $T$ 的个数。</p>
+<p>然后 dp，保证不经过跳 fail 能跳到带 end 符节点的节点即可。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AC自动机/" rel="tag"># AC自动机</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/07/题解-BJOI2019-奥术神杖/" rel="next" title="题解 [BJOI2019] 奥术神杖">
+                <i class="fa fa-chevron-left"></i> 题解 [BJOI2019] 奥术神杖
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256" alt="Mr_Wu">
+            
+              <p class="site-author-name" itemprop="name">Mr_Wu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链qwq
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://AndyFew.github.io/" title="AC_Dophin" target="_blank">AC_Dophin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hellonk.github.io/" title="hellonk" target="_blank">hellonk</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AC-自动机"><span class="nav-number">1.</span> <span class="nav-text">AC 自动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立一个-AC-自动机"><span class="nav-number">3.</span> <span class="nav-text">建立一个 AC 自动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">4.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例题"><span class="nav-number">5.</span> <span class="nav-text">一些例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【模板】AC-自动机-（加强）"><span class="nav-number">5.1.</span> <span class="nav-text">【模板】AC 自动机 （加强）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面-amp-题意"><span class="nav-number">5.1.1.</span> <span class="nav-text">题面 &amp; 题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解"><span class="nav-number">5.1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POI-2000-病毒"><span class="nav-number">5.2.</span> <span class="nav-text">[POI 2000] 病毒</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面-amp-题意-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">题面 &amp; 题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-1"><span class="nav-number">5.2.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fail-树"><span class="nav-number">6.</span> <span class="nav-text">Fail 树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例题-1"><span class="nav-number">7.</span> <span class="nav-text">一些例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TJOI-2013-单词"><span class="nav-number">7.1.</span> <span class="nav-text">[TJOI 2013] 单词</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面-amp-题意-2"><span class="nav-number">7.1.1.</span> <span class="nav-text">题面 &amp; 题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解-1"><span class="nav-number">7.1.2.</span> <span class="nav-text">解 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解-2"><span class="nav-number">7.1.3.</span> <span class="nav-text">解 2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NOI-2011-阿狸的打字机"><span class="nav-number">7.2.</span> <span class="nav-text">[NOI 2011] 阿狸的打字机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面-amp-题意-3"><span class="nav-number">7.2.1.</span> <span class="nav-text">题面 &amp; 题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-2"><span class="nav-number">7.2.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AC-自动机上-dp"><span class="nav-number">8.</span> <span class="nav-text">AC 自动机上 dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例题-2"><span class="nav-number">9.</span> <span class="nav-text">一些例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BJOI-2019-奥术神杖"><span class="nav-number">9.1.</span> <span class="nav-text">[BJOI 2019] 奥术神杖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSOI-2007-文本生成器"><span class="nav-number">9.2.</span> <span class="nav-text">[JSOI 2007] 文本生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题面-amp-题意-4"><span class="nav-number">9.2.1.</span> <span class="nav-text">题面 &amp; 题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题解-3"><span class="nav-number">9.2.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr_Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'p00FqddhdYGyTolMQ08Mn1Ej-gzGzoHsz',
+        appKey: 'fT9XQq6MBaBjohTPwwxCtXv8',
+        placeholder: 'QwQ',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

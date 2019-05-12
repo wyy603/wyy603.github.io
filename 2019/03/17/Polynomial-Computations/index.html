@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数论,多项式,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我们在一些题目中会计算一些多项式操作，例如求和，求乘积之类。">
+<meta name="keywords" content="数论,多项式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多项式计算">
+<meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2019/03/17/Polynomial-Computations/index.html">
+<meta property="og:site_name" content="Mr_Wu&#39;s Blog">
+<meta property="og:description" content="我们在一些题目中会计算一些多项式操作，例如求和，求乘积之类。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.niupic.com/images/2019/03/17/5RR5.png">
+<meta property="og:updated_time" content="2019-04-02T13:28:51.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多项式计算">
+<meta name="twitter:description" content="我们在一些题目中会计算一些多项式操作，例如求和，求乘积之类。">
+<meta name="twitter:image" content="https://i.niupic.com/images/2019/03/17/5RR5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/wyy603/wyy603.github.io.git/2019/03/17/Polynomial-Computations/">
+
+
+
+
+
+  <title>多项式计算 | Mr_Wu's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr_Wu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">qwq</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/wyy603/wyy603.github.io.git/2019/03/17/Polynomial-Computations/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr_Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr_Wu's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多项式计算</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T20:17:20+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/17/Polynomial-Computations/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/17/Polynomial-Computations/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们在一些题目中会计算一些多项式操作，例如求和，求乘积之类。</p>
+<a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>[TOC]</p>
+<h1 id="多项式乘法"><a href="#多项式乘法" class="headerlink" title="多项式乘法"></a>多项式乘法</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="系数表示法"><a href="#系数表示法" class="headerlink" title="系数表示法"></a>系数表示法</h3><p>$f(x)=\sum_{i=0}^{n} a_ix^i$可以描述一个$n$次多项式。</p>
+<h3 id="点值表示法"><a href="#点值表示法" class="headerlink" title="点值表示法"></a>点值表示法</h3><p>众所周知，$n+1$个点可以唯一地确定一个$n$次多项式。</p>
+<p>例如给你两点$(0,0)$，$(1,1)$，可以确定一次函数$y=x$</p>
+<p>故用$(x_0, y_0), \cdots, (x_n, y_n)$表示$f(x)$也是一个方法。</p>
+<h3 id="复数"><a href="#复数" class="headerlink" title="复数"></a>复数</h3><p>形如$a+bi$，其中$i^2=-1$，在复平面（x实轴，y虚轴）上表示从$(0,0)$到$(a,b)$的向量。</p>
+<p>四则运算：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& z_1=a_1+b_1i, z_2=a_2+b_2i \\
+& z_1+z_2=(a_1+a_2)+(b_1+b_2)i \\
+& z_1-z_2=(a_1-a_2)+(b_1-b_2)i \\
+& z_1\times z_2=(a_1a_2-b_1b_2)+(a_1b_2+a_2b_1)i \\
+& \frac{z_1}{z_2}= \frac{(a_1a_2+b_1b_2)+(a_2b_1-a_1b_2)i}{a_2^2+b_2^2} \\
+\end{aligned}</script><p>模长：$(a,b)$到$(0,0)$的距离</p>
+<p>幅角：从正半轴逆时针转到向量的角度</p>
+<p>乘法的几何意义：模长相乘，幅角相加</p>
+<ul>
+<li>例题：计算$\frac{2+i}{2-i}$</li>
+</ul>
+<h3 id="单位根"><a href="#单位根" class="headerlink" title="单位根"></a>单位根</h3><p><img src="https://i.niupic.com/images/2019/03/17/5RR5.png" alt=""></p>
+<p>在复平面上以原点为圆心作一个半径为1的圆，并将其$n$等分，将每条$n$等分的边看做一条向量。（图为$n=8$的情形）</p>
+<p>记$w_n$表示幅角为正且最小的向量所代表的复数，在图中表示为从正半轴逆时针数一个的向量。（即朝右上方的向量）</p>
+<p>那么从正半轴开始，逆时针数，每个向量表示的复数分别是：$w_n^0, w_n^1, \cdots, w_n^{n-1}$，这是由于乘法的几何意义：模长相乘，幅角相加，乘上一个$w_n$相当于逆时针旋转$\frac{360 ^{\circ}}{n}$，模长不变。</p>
+<p>显然$w_n^0=w_n^n=1$。</p>
+<p>代数意义：$z^n=1$的所有解。</p>
+<p>性质：</p>
+<p><strong>欧拉定理</strong>：</p>
+<script type="math/tex; mode=display">
+w_n^k = \cos k\times\frac{2\pi}{n}+i \sin k \times \frac{2\pi}{n}</script><blockquote>
+<p>证明：$k\times \frac{2\pi}{n}$是幅角，将向量转换成复数就是如此形式。</p>
+</blockquote>
+<p><strong>消去引理：</strong></p>
+<script type="math/tex; mode=display">
+w^{dk}_{dn}=w^k_n</script><blockquote>
+<p>证明：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& w_{dn}^{dk} \\
+& = \cos {dk}\times\frac{2\pi}{dn}+i \sin dk \times \frac{2\pi}{dn} \\
+& = \cos {k}\times\frac{2\pi}{n}+i \sin k \times \frac{2\pi}{n} \\
+&= w_n^k
+\end{aligned}</script></blockquote>
+<p>利用这些式子，我们得到三个有用的式子：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& w_n^{2k}=w_{\frac{n}{2}}^k \\
+& w_n^{k+\frac{n}{2}}=-w^k_n \\
+\end{aligned}</script><script type="math/tex; mode=display">
+w_n=\cos \frac{2\pi}{n}+i\sin \frac{2\pi}{n}</script><p>证明略，通过欧拉定理可以十分容易地证明。</p>
+<ul>
+<li>例题1：证明$w_n^{k+dn}=w_n^k$，$d$为正整数。</li>
+<li>例题2：写出complex类，并实现：给n，求$w_n$</li>
+</ul>
+<h3 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h3><p>(a,m)=1，使得$a^t\equiv 1 \pmod m$的最小正整数$t$被成为$a$对模$m$的阶，记作$\delta_m(a)$</p>
+<h3 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h3><p>若$\delta_m(g)=\varphi(m)$，称$g$为$m$原根。</p>
+<h2 id="快速傅里叶变换-FFT"><a href="#快速傅里叶变换-FFT" class="headerlink" title="快速傅里叶变换(FFT)"></a>快速傅里叶变换(FFT)</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><h4 id="快速傅里叶变换-FFT-的大体框架"><a href="#快速傅里叶变换-FFT-的大体框架" class="headerlink" title="快速傅里叶变换(FFT)的大体框架"></a>快速傅里叶变换(FFT)的大体框架</h4><p>也即$\text{FFT(Fast Fourier Transform)}$，可以$O(n \log n)$地计算两个多项式$F(x)$和$G(x)$的卷积（这里可以理解为乘积）</p>
+<p>其思路如下：</p>
+<p>将$F(x)$和$G(x)$从系数表示$O(n\log n)$地转换为点值表示（我们需要两倍长度的点）</p>
+<p>然后将所有$y_i$都乘起来（这一步是$O(n)$的，容易实现）</p>
+<p>再$O(n\log n)$地转换为系数表示，得到$F(x)G(x)$</p>
+<p>现在我们有问题：选取哪些$x_i$？这会在下文给出解答。</p>
+<ul>
+<li>例题：给$y=x$和$y=2x+1$，通过上述方法（系数表示-&gt;点值表示-&gt;系数表示）算出乘积。</li>
+</ul>
+<h4 id="离散型傅立叶变换-DFT"><a href="#离散型傅立叶变换-DFT" class="headerlink" title="离散型傅立叶变换(DFT)"></a>离散型傅立叶变换(DFT)</h4><p>也即$\text{Discrete Fourier Transform}$，完成的是这样一个任务：给$F(x)=\sum_{i=0}^{n-1} a_ix^i$，（注意这个多项式的次数是n-1）得到$w_n^0,w_n^1,\cdots,w_n^{n-1}$在这一多项式上的取值。也即求出</p>
+<script type="math/tex; mode=display">
+F(w_n^0), F(w_n^1),\cdots, F(w_n^{n-1})</script><p>具体如此实现：（假定$n$为偶数）</p>
+<p>将$F(x)$的系数按奇偶分组，令</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& F_1(x) = a_0x^0+a_2x^1+\cdots+a_{n-2}x^{\frac{n}{2}-1} \\
+& F_2(x) = a_1x^0+a_3x^1+\cdots+a_{n-1}x^{\frac{n}{2}-1}
+\end{aligned}</script><p>然后事实上我们有$F(x)=F_1(x^2)+xF_2(x^2)$</p>
+<p>我们假设我们已经知道$F_1(x), F_2(x)$分别在</p>
+<script type="math/tex; mode=display">
+w_{\frac{n}{2}}^{0}, w_{\frac{n}{2}}^{1}, \cdots, w_{\frac{n}{2}}^{\frac{n}{2}-1}</script><p>这$\frac{n}{2}$处的取值，对于$0\le k&lt;\frac{n}{2}$，我们有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& F(w_n^k)=F_1(w_n^{2k})+w_n^kF_2(w_n^{2k}) \\
+&= F_1(w_{\frac{n}{2}}^k)+w_n^kF_2(w_{\frac{n}{2}}^k)
+\end{aligned}</script><p>且有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& F(w_n^{k+\frac{n}{2}})=F_1(w_n^{2k+n})+w_n^{k+\frac{n}{2}}F_2(w_n^{2k+n}) \\
+&= F_1(w_{\frac{n}{2}}^k)+w_n^{k+\frac{n}{2}}F_2(w_{\frac{n}{2}}^k) \\
+&= F_1(w_{\frac{n}{2}}^k)-w_n^kF_2(w_{\frac{n}{2}}^k)
+\end{aligned}</script><p>我们注意到，当我们知道一个$w_\frac{n}{2}^k$分别在两多项式$F_1(x)$和$F_2(x)$处的取值，便可以直接计算两个值：$F(w_n^k)$和$F(w_n^{k+\frac{n}{2}})$，也就是说，我们将任务减半，变成两个规模减半，类型相同的子问题。</p>
+<p>然后我们想到了：递归求解。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFT</span><span class="params">(<span class="keyword">complex</span>* A, <span class="keyword">int</span> lim)</span> <span class="comment">//处理一个lim-1次的多项式</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i; <span class="keyword">complex</span> A1[lim &gt;&gt; <span class="number">1</span>], A2[lim &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    Split(A, A1, A2); <span class="comment">//此处将A的系数按奇偶分类，做完后A1的系数是上文F1的系数，A2同理</span></span><br><span class="line">    DFT(A1, lim &gt;&gt; <span class="number">1</span>), DFT(A2, lim &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//递归后，A1[k]存F1(w_(n/2)^k)，A2[k]存F2(w_(n/2)^k)</span></span><br><span class="line">    <span class="keyword">complex</span> unit, w(<span class="number">1</span>, <span class="number">0</span>); <span class="comment">//w是递归变量，unit是w_n的值。</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (lim &gt;&gt; <span class="number">1</span>); ++i, w = w * unit)</span><br><span class="line">    &#123;</span><br><span class="line">        A[i] = A1[i] + w * A2[i];</span><br><span class="line">        A[i + (lim &gt;&gt; <span class="number">1</span>)] = A1[i] - w * A2[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一个代码便可实现上述过程（在下文里，会提到这种实现方法不是最优的，此代码用来提供实现思路）</p>
+<h4 id="离散型傅里叶逆变换-IDFT"><a href="#离散型傅里叶逆变换-IDFT" class="headerlink" title="离散型傅里叶逆变换(IDFT)"></a>离散型傅里叶逆变换(IDFT)</h4><p>即$\text{Inverse Discrete Fourier Transform}$。</p>
+<p>可以证明：</p>
+<blockquote>
+<p>对某一多项式$A(x)=a_0x^0+a_1x^1+\cdots+a_nx^n$</p>
+<p>设$B(x)$的每一项系数$b_i$为$A(w_n^i)$</p>
+<p>且$C(x)$的每一项系数$c_i$为$B(w_n^{-i})$</p>
+<p>则有$a_i=\frac{c_i}{n}$</p>
+</blockquote>
+<p>证明过于繁琐，如果想知道可以翻网上别的解法。</p>
+<p>于是当我们求出$F(x)G(x)$在$w_n^0,\cdots,w_n^{n-1}$处的点值表达时，把点值表达串成一个多项式做IDFT，求出在$w_n^0,w_n^{-1},\cdots,w_n^{-(n-1)}$处的系数，最后将系数除以$n$就能得到$F(x)G(x)$的系数表达。</p>
+<p>而IDFT只需要DFT一遍，在DFT时将用来递推的$w_n$设为$w_n^{-1}$，代入欧拉定理得</p>
+<script type="math/tex; mode=display">
+w_n^{-1}=\cos \frac{2\pi}{n}-i \sin \frac{2\pi}{n}</script><h4 id="FFT流程"><a href="#FFT流程" class="headerlink" title="FFT流程"></a>FFT流程</h4><p>通过分治法做FFT（重要公式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& w_n=\cos \frac{2\pi}{n}+i\sin\frac{2\pi}{n} \\
+& F(w_n^k)=F_1(w_{\frac{n}{2}}^k)+w_n^kF_2(w_{\frac{n}{2}}^k) \\
+& F(w_n^{k+\frac{n}{2}})=F_1(w_{\frac{n}{2}}^k)-w_n^kF_2(w_{\frac{n}{2}}^k)
+\end{aligned}</script><p>得出$F(x)$和$G(x)$的点值表达，乘起来，再做IDFT，得出$c_i$，再除掉$n$，得到卷积的系数。</p>
+<p>实现细节：一开始将长度补成2的幂次。</p>
+<h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><h4 id="复数实现"><a href="#复数实现" class="headerlink" title="复数实现"></a>复数实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">double</span> a, b;</span><br><span class="line">    <span class="keyword">complex</span>() &#123;&#125;</span><br><span class="line">    <span class="keyword">complex</span>(<span class="keyword">double</span> ia, <span class="keyword">double</span> ib) &#123; a = ia, b = ib; &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>= (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; T) &#123; a = T.a, b = T.b; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>+ (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a + B.a, A.b + B.b); &#125;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>- (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a - B.a, A.b - B.b); &#125;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>* (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a * B.a - A.b * B.b, A.a * B.b + A.b * B.a); &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="递归实现FFT"><a href="#递归实现FFT" class="headerlink" title="递归实现FFT"></a>递归实现FFT</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(<span class="keyword">int</span> lim, <span class="keyword">complex</span>* A, <span class="keyword">int</span> flag)</span> <span class="comment">//flag=1时做DFT，flag=-1时做IDFT</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lim == <span class="number">1</span>) <span class="keyword">return</span>; <span class="comment">//只有0次项，我们不必要求点值表达。</span></span><br><span class="line">    <span class="keyword">complex</span> A1[lim], A2[lim]; <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; lim; i += <span class="number">2</span>) A1[i &gt;&gt; <span class="number">1</span>] = A[i], A2[i &gt;&gt; <span class="number">1</span>] = A[i + <span class="number">1</span>]; <span class="comment">//奇偶分类</span></span><br><span class="line">    FFT(lim &gt;&gt; <span class="number">1</span>, A1, flag), FFT(lim &gt;&gt; <span class="number">1</span>, A2, flag);</span><br><span class="line">    complex unit(cos(2.0 * Pi / lim), flag * sin(2.0 * Pi / lim)), w(1, 0);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (lim &gt;&gt; <span class="number">1</span>); ++i, w = w * unit) A[i] = A1[i] + w * A2[i], A[i + (lim &gt;&gt; <span class="number">1</span>)] = A1[i] - w * A2[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> N, M, LIM = <span class="number">1</span>; <span class="keyword">complex</span> F[MAXN], G[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    N = read(), M = read(); <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N; ++i) F[i] = <span class="keyword">complex</span>(read(), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= M; ++i) G[i] = <span class="keyword">complex</span>(read(), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">while</span> (LIM &lt;= N + M) LIM &lt;&lt;= <span class="number">1</span>; <span class="comment">//补成2的幂次</span></span><br><span class="line">    FFT(LIM, F, <span class="number">1</span>), FFT(LIM, G, <span class="number">1</span>); <span class="comment">//两次DFT</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= LIM; ++i) F[i] = F[i] * G[i]; <span class="comment">//F(x)G(x)的点值表达</span></span><br><span class="line">    FFT(LIM, F, <span class="number">-1</span>); <span class="comment">//一次IDFT求出c_i</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N + M; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, (ll)(F[i].a / LIM + <span class="number">0.5</span>)); <span class="comment">//有定理c_i=a_i/n，在这里使用，得出系数。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="蝴蝶操作-amp-Rader排序"><a href="#蝴蝶操作-amp-Rader排序" class="headerlink" title="蝴蝶操作 &amp; Rader排序"></a>蝴蝶操作 &amp; Rader排序</h3><p>我们发现，递归FFT常数太大，导致其过不了luogu的模板题。</p>
+<h4 id="蝴蝶操作"><a href="#蝴蝶操作" class="headerlink" title="蝴蝶操作"></a>蝴蝶操作</h4><p>将一步<code>A[i] = A1[i] + w * A2[i], A[i + (lim &gt;&gt; 1)] = A1[i] - w * A2[i];</code>定义为一次蝴蝶操作。</p>
+<p>事实上蝴蝶操作可以做常数优化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">complex</span> nx = A1[i], ny = w * A2[i];</span><br><span class="line">A[i] = nx + ny, A[i + (lim &gt;&gt; <span class="number">1</span>)] = nx - ny;</span><br></pre></td></tr></table></figure>
+<h4 id="Rader排序"><a href="#Rader排序" class="headerlink" title="Rader排序"></a>Rader排序</h4><p>考虑n=8时的递归情形：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a0</th>
+<th>a1</th>
+<th>a2</th>
+<th>a3</th>
+<th>a4</th>
+<th>a5</th>
+<th>a6</th>
+<th>a7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a0 a2 a4 a6</th>
+<th>a1 a3 a5 a7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a0 a4</th>
+<th>a2 a6</th>
+<th>a1 a5</th>
+<th>a3 a7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a0</th>
+<th>a4</th>
+<th>a2</th>
+<th>a6</th>
+<th>a1</th>
+<th>a5</th>
+<th>a3</th>
+<th>a7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>实际上我们可以考虑将递推改成递归：先枚举递归层数（枚举每段的长度），然后对每段这样长度的子区间，做蝴蝶操作。</p>
+<p>在n=8的实例中，将序列改成<code>[a1,a5,a3,a7,a2,a6,a4,a8]</code>，</p>
+<p>第一次len=1，合并8个区间，a0,a4做蝴蝶操作，a2,a6做蝴蝶操作，a1,a5做蝴蝶操作，a3,a7做蝴蝶操作</p>
+<p>第二次len=2，合并4个区间：a0,a2做蝴蝶操作，a4,a6做蝴蝶操作，a1,a3做蝴蝶操作，a5,a7做蝴蝶操作</p>
+<p>第三次len=4，合并2个区间：a0,a1做蝴蝶操作，a2,a3做蝴蝶操作，a4,a5做蝴蝶操作，a6,a7做蝴蝶操作</p>
+<p>最后得出点值表示。</p>
+<p>最后我们再来研究初序列和末序列的关系，可以证明：是二进制反转。</p>
+<p>例如1=001，倒过来4=100，正好对应a1-&gt;a4</p>
+<p>得出二进制反转可以使用如下操作：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<p>其中R[i]表示i的二进制反转，原理是将i的前几位翻转后右移一位，再把最后一位移到第一位合起来。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>综上所述，我们可以得出一个优化后的迭代代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b) (((a) &lt; (b)) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) (((a) &gt; (b)) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1000005</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> Pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar();</span><br><span class="line">    ll ret = <span class="number">0</span>, t = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ((c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) &amp;&amp; c != <span class="string">'-'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="string">'-'</span>) t = <span class="number">-1</span>, c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    <span class="keyword">return</span> ret * t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; a, T&amp; b)</span> </span>&#123; T t = a; a = b, b = t; &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">double</span> a, b;</span><br><span class="line">    <span class="keyword">complex</span>() &#123;&#125;</span><br><span class="line">    <span class="keyword">complex</span>(<span class="keyword">double</span> ia, <span class="keyword">double</span> ib) &#123; a = ia, b = ib; &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>= (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; T) &#123; a = T.a, b = T.b; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>+ (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a + B.a, A.b + B.b); &#125;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>- (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a - B.a, A.b - B.b); &#125;</span><br><span class="line"><span class="keyword">complex</span> <span class="keyword">operator</span>* (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; A, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; B) &#123; <span class="keyword">return</span> <span class="keyword">complex</span>(A.a * B.a - A.b * B.b, A.a * B.b + A.b * B.a); &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">complex</span> F[MAXN &lt;&lt; <span class="number">2</span>], G[MAXN &lt;&lt; <span class="number">2</span>]; <span class="keyword">int</span> N, M, LIM = <span class="number">1</span>, L, R[MAXN &lt;&lt; <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(<span class="keyword">complex</span>* A, <span class="keyword">int</span> flag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len, s, i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) <span class="keyword">if</span> (i &lt; R[i]) swap(A[i], A[R[i]]);</span><br><span class="line">    <span class="keyword">for</span> (len = <span class="number">2</span>; len &lt;= LIM; len &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">complex</span> <span class="title">unit</span><span class="params">(<span class="built_in">cos</span>(<span class="number">2.0</span> * Pi / len), flag * <span class="built_in">sin</span>(<span class="number">2.0</span> * Pi / len))</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (s = <span class="number">0</span>; s &lt; LIM; s += len)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function"><span class="keyword">complex</span> <span class="title">w</span><span class="params">(<span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span> (i = s; i &lt; s + (len &gt;&gt; <span class="number">1</span>); ++i, w = w * unit)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">complex</span> nx = A[i], ny = w * A[i + (len &gt;&gt; <span class="number">1</span>)];</span><br><span class="line">                A[i] = nx + ny, A[i + (len &gt;&gt; <span class="number">1</span>)] = nx - ny;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    N = read(), M = read(); <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N; ++i) F[i] = <span class="keyword">complex</span>(read(), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= M; ++i) G[i] = <span class="keyword">complex</span>(read(), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">while</span> (LIM &lt;= N + M) LIM &lt;&lt;= <span class="number">1</span>, ++L;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>));</span><br><span class="line">    FFT(F, <span class="number">1</span>), FFT(G, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) F[i] = F[i] * G[i];</span><br><span class="line">    FFT(F, <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N + M; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, (ll)(F[i].a / LIM + <span class="number">0.5</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速数论变换-NTT"><a href="#快速数论变换-NTT" class="headerlink" title="快速数论变换(NTT)"></a>快速数论变换(NTT)</h2><h3 id="快读数论变换-NTT-的大体框架"><a href="#快读数论变换-NTT-的大体框架" class="headerlink" title="快读数论变换(NTT)的大体框架"></a>快读数论变换(NTT)的大体框架</h3><p>也即$\text{Number Theoretic Transform}$，求$F(x)G(x) \mod p$的一类算法。</p>
+<p>事实上大体框架与FFT完全相同，不同之处在于用原根替换掉单位根。</p>
+<p>一般来说，$p=998244353$，它的原根$g=3$。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>我们需要让素数$p$满足$p=k\times 2^m+1$，（事实上，$998244353-1=119\times2^{23}$）设其原根为$g$</p>
+<p>令$g_n=g^{\frac{p-1}{n}}$。（当我们做NTT时，n被补到2的幂次，于是就可以除）</p>
+<p>考虑为什么可以使用单位根优化DFT，根本原因是单位根满足一些性质：</p>
+<ul>
+<li>$w_n^k$两两不同$(0\le k&lt;n)$ （足够确定多项式）</li>
+</ul>
+<p>我们可以证明</p>
+<script type="math/tex; mode=display">
+g_n^i\not \equiv g_n^j\pmod p \, (i\not = j, 0\le i, j\le \varphi(p)-1)</script><blockquote>
+<p>假设存在$g_n^i\equiv g_n^j \pmod p (i&gt;j)$</p>
+<p>有$g_n^{i-j} \equiv 1 \pmod p$</p>
+<p>而$i-j&lt;\varphi(p)$，于是我们找到一个比$\varphi(p)$小的$t$满足$g^t\equiv  1 \pmod p$这与$g$是原根的定义矛盾。</p>
+</blockquote>
+<p>而在NTT的过程中不会出现$g_n^{n-1}$，所以可以保证所有$x_i$都是不同的。</p>
+<ul>
+<li>$w^{dk}_{dn}=w^k_n$ （可以分成子问题）</li>
+</ul>
+<p>我们有$g_{dn}^{dk}\equiv g^{\frac{p-1}{dn}\times dk}\equiv g_n^k$</p>
+<p>所以用原根替换单位根是可行的。</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b) (((a) &lt; (b)) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) (((a) &gt; (b)) ? (a) : (b))</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar();</span><br><span class="line">    ll ret = <span class="number">0</span>, t = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ((c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) &amp;&amp; c != <span class="string">'-'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="string">'-'</span>) t = <span class="number">-1</span>, c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    <span class="keyword">return</span> ret * t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">q_pow</span><span class="params">(ll a, ll b, ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) ret = (ret * a) % p;</span><br><span class="line">        a = (a * a) % p, b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; a, T&amp; b)</span> </span>&#123; T t = a; a = b, b = t; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 998244353</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> G 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1000005</span></span><br><span class="line"></span><br><span class="line">ll F1[MAXN &lt;&lt; <span class="number">2</span>], F2[MAXN &lt;&lt; <span class="number">2</span>]; <span class="keyword">int</span> N, M, LIM = <span class="number">1</span>, L, R[MAXN &lt;&lt; <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NTT</span><span class="params">(ll* A, <span class="keyword">int</span> flag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, len, s;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) <span class="keyword">if</span> (i &lt; R[i]) swap(A[i], A[R[i]]);</span><br><span class="line">    <span class="keyword">for</span> (len = <span class="number">2</span>; len &lt;= LIM; len &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ll g = (q_pow(G, (MOD - <span class="number">1</span>) / len, MOD) + MOD) % MOD, w;</span><br><span class="line">        <span class="keyword">if</span> (flag == <span class="number">-1</span>) g = q_pow(g, MOD - <span class="number">2</span>, MOD);</span><br><span class="line">        <span class="keyword">for</span> (s = <span class="number">0</span>; s &lt; LIM; s += len)</span><br><span class="line">        &#123;</span><br><span class="line">            w = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (i = s; i &lt; s + (len &gt;&gt; <span class="number">1</span>); ++i, w = (w * g) % MOD)</span><br><span class="line">            &#123;</span><br><span class="line">                ll nx = A[i], ny = (w * A[i + (len &gt;&gt; <span class="number">1</span>)]) % MOD;</span><br><span class="line">                A[i] = (nx + ny) % MOD, A[i + (len &gt;&gt; <span class="number">1</span>)] = (nx - ny + MOD) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    N = read(), M = read(); <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N; ++i) F1[i] = read();</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= M; ++i) F2[i] = read();</span><br><span class="line">    <span class="keyword">while</span> (LIM &lt;= N + M) LIM &lt;&lt;= <span class="number">1</span>, ++L;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>));</span><br><span class="line">    NTT(F1, <span class="number">1</span>), NTT(F2, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) F1[i] = (F1[i] * F2[i]) % MOD;</span><br><span class="line">    NTT(F1, <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N + M; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, (F1[i] * q_pow(LIM, MOD - <span class="number">2</span>, MOD)) % MOD);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a>多项式求逆</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定$n$次多项式$F(x)$，求一多项式$G(x)$，使得</p>
+<script type="math/tex; mode=display">
+F(x)G(x)\equiv 1 \pmod {x^n}</script><p>$G(x)$的系数$\pmod {998244353}$（或者一个别的模数？）</p>
+<p><a href="https://www.luogu.org/problemnew/show/P4238" target="_blank" rel="noopener">luogu 多项式求逆</a></p>
+<h2 id="基础结论"><a href="#基础结论" class="headerlink" title="基础结论"></a>基础结论</h2><p>假设我们得到了一个$\frac{n}{2}$次多项式$H(x)$满足$F(x)H(x)\equiv 1\pmod {x^{\frac{n}{2}}}$</p>
+<p>由于$F(x)G(x)\equiv 1\pmod {x^{\frac{n}{2}}}$，所以$(G(x)-H(x))\equiv 0 \pmod {x^{\frac{n}{2}}}$</p>
+<p>令$A(x)=G(x)-H(x)$，我们可以发现$a_0,a_1,\cdots,a_{\frac{n}{2}-1}$都应为$0$。</p>
+<p><del>根据直觉或者将整数乘法归纳到多项式乘法上</del>$A^2(x)$的系数$t_i=\sum_{k=0}^{i} a_ka_{i-k}$，考虑到对$i&lt;n$，$\min\{k,i-k\}&lt;\frac{n}{2}$，所以$A^2(x)\equiv 0 \pmod {x^n}$</p>
+<p>那么$G^2(x)-2G(x)H(x)+H^2(x)\equiv 0 \pmod {x^n}$，同时乘上$F(x)$，并利用$G(x)F(x)\equiv 1 \pmod {x^n}$，得出$G(x)\equiv 2H(x)-F(x)H^2(x)$.</p>
+<p>而我们发现如果我们要求$H(x)$，把$H(x)$当成$G(x)$，这便是一个子问题了！</p>
+<p>现在我们算复杂度，$T(n)=O(n\log n)+T(\frac{n}{2})$，由于master定理似乎无法解决，我们考虑乱搞。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& T(n)=O(n\log n)+T(\frac{n}{2}) \\
+& = n\log n + \frac{n}{2} \log \frac{n}{2} + \cdots \\
+&= n\log n + \frac{n}{2}(\log n-1)+\frac{n}{4}(\log n-2) \\
+&= (n+\frac{n}{2}+\frac{n}{4}+\cdots)\log n-\frac{n}{2}-\frac{n}{2}-\cdots \\
+&= 2n\log n - \frac{n}{2}\log n \\
+&= n\log n
+\end{aligned}</script><p>所以差不多是$O(n\log n)$的复杂度…</p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ll T[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Inv</span><span class="params">(ll* G, <span class="keyword">const</span> ll* F, <span class="keyword">int</span> LIM, <span class="keyword">int</span> L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (LIM == <span class="number">1</span>) &#123; G[<span class="number">0</span>] = q_pow(F[<span class="number">0</span>], MOD - <span class="number">2</span>, MOD); <span class="keyword">return</span>; &#125;</span><br><span class="line">	Inv(G, F, LIM &gt;&gt; <span class="number">1</span>, L - <span class="number">1</span>), Copy(T, F, LIM); <span class="keyword">int</span> i; <span class="comment">//将F复制一遍，因为NTT时会改变它。（另，此时的G是上文的H(x)）</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; L); <span class="comment">//必须要重新算</span></span><br><span class="line">    </span><br><span class="line">	NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>), NTT(T, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = ((<span class="number">2</span> * G[i] - ((T[i] * squ(G[i])) % MOD)) % MOD + MOD) % MOD; <span class="comment">//找到G(x)的点值表达</span></span><br><span class="line">	NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) G[i] = (G[i] * q_pow(LIM &lt;&lt; <span class="number">1</span>, MOD - <span class="number">2</span>, MOD)) % MOD; <span class="comment">//IDFT</span></span><br><span class="line">	<span class="keyword">for</span> (i = LIM; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>观察以上求逆元的代码，需要注意：</p>
+<ul>
+<li>在使用的最开始，需要补齐$F(x)$到2的幂次</li>
+<li>$2H(x)-F(x)H^2(x)$是一个$2n$次的式子，不能因为其$\pmod {x^n}$就只将NTT的长度设为$n$。</li>
+<li>那么由于这个式子是$2n$次的，IDFT后要将多余的$(n+1)$~$(2n)$这些都设为$0$</li>
+<li>边界条件：长度为1时，$G_0=F_0^{-1}$</li>
+</ul>
+<h2 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b) (((a) &lt; (b)) ? (a) : (b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) (((a) &gt; (b)) ? (a) : (b))</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar();</span><br><span class="line">    ll ret = <span class="number">0</span>, t = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ((c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) &amp;&amp; c != <span class="string">'-'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="string">'-'</span>) t = <span class="number">-1</span>, c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    <span class="keyword">return</span> ret * t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">q_pow</span><span class="params">(ll a, ll b, ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>) ret = (ret * a) % p;</span><br><span class="line">        a = (a * a) % p, b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; a, T&amp; b)</span> </span>&#123; T t = a; a = b, b = t; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 998244353</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GE 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 400005</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">squ</span><span class="params">(ll x)</span> </span>&#123; <span class="keyword">return</span> (x * x) % MOD; &#125;</span><br><span class="line"><span class="keyword">int</span> R[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Copy</span><span class="params">(ll* A, <span class="keyword">const</span> ll* B, <span class="keyword">int</span> LIM)</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LIM; ++i) A[i] = B[i]; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NTT</span><span class="params">(ll* A, <span class="keyword">int</span> LIM, <span class="keyword">int</span> flag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, len, s;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) <span class="keyword">if</span> (i &lt; R[i]) swap(A[i], A[R[i]]);</span><br><span class="line">    <span class="keyword">for</span> (len = <span class="number">2</span>; len &lt;= LIM; len &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ll g = (q_pow(GE, (MOD - <span class="number">1</span>) / len, MOD) + MOD) % MOD, w;</span><br><span class="line">        <span class="keyword">if</span> (flag == <span class="number">-1</span>) g = q_pow(g, MOD - <span class="number">2</span>, MOD);</span><br><span class="line">        <span class="keyword">for</span> (s = <span class="number">0</span>; s &lt; LIM; s += len)</span><br><span class="line">        &#123;</span><br><span class="line">            w = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (i = s; i &lt; s + (len &gt;&gt; <span class="number">1</span>); ++i, w = (w * g) % MOD)</span><br><span class="line">            &#123;</span><br><span class="line">                ll nx = A[i], ny = (w * A[i + (len &gt;&gt; <span class="number">1</span>)]) % MOD;</span><br><span class="line">                A[i] = (nx + ny) % MOD, A[i + (len &gt;&gt; <span class="number">1</span>)] = (nx - ny + MOD) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll T[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Inv</span><span class="params">(ll* G, <span class="keyword">const</span> ll* F, <span class="keyword">int</span> LIM, <span class="keyword">int</span> L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (LIM == <span class="number">1</span>) &#123; G[<span class="number">0</span>] = q_pow(F[<span class="number">0</span>], MOD - <span class="number">2</span>, MOD); <span class="keyword">return</span>; &#125;</span><br><span class="line">	Inv(G, F, LIM &gt;&gt; <span class="number">1</span>, L - <span class="number">1</span>), Copy(T, F, LIM); <span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; L);</span><br><span class="line">	NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>), NTT(T, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = ((<span class="number">2</span> * G[i] - ((T[i] * squ(G[i])) % MOD)) % MOD + MOD) % MOD;</span><br><span class="line">	NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) G[i] = (G[i] * q_pow(LIM &lt;&lt; <span class="number">1</span>, MOD - <span class="number">2</span>, MOD)) % MOD;</span><br><span class="line">	<span class="keyword">for</span> (i = LIM; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, LIM = <span class="number">1</span>, L; ll F[MAXN], G[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">    freopen(<span class="string">"input.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    freopen(<span class="string">"output.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    N = read(); <span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; ++i) F[i] = read();</span><br><span class="line">	<span class="keyword">while</span> (LIM &lt;= N) LIM &lt;&lt;= <span class="number">1</span>, ++L;</span><br><span class="line">	Inv(G, F, LIM, L);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, G[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="多项式除法"><a href="#多项式除法" class="headerlink" title="多项式除法"></a>多项式除法</h1><h2 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h2><p>给$n$次多项式$F(x)$，$m$次多项式$G(x)$，求$n-m$次多项式$Q(x)$和 次数$&lt;m$的多项式$R(x)$，满足</p>
+<script type="math/tex; mode=display">
+F(x)=Q(x)G(x)+R(x)</script><p>系数模$998244353$</p>
+<h2 id="基础结论-1"><a href="#基础结论-1" class="headerlink" title="基础结论"></a>基础结论</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$A(x)$是$n$次多项式，记$A_R(x)=x^nA(\frac{1}{x})$，容易发现将系数翻过来就能求出$A_R(x)$的各项系数。</p>
+<h3 id="式子"><a href="#式子" class="headerlink" title="式子"></a>式子</h3><p>将$R(x)$看做$m-1$次多项式。</p>
+<p>我们有</p>
+<script type="math/tex; mode=display">
+F(\frac{1}{x})=Q(\frac{1}{x})G(\frac{1}{x})+R(\frac{1}{x})</script><p>同时乘$x^n$，有</p>
+<script type="math/tex; mode=display">
+F_R(x)=Q_R(x)G_R(x)+x^{n-m+1}R_R(x)</script><p>考虑在模$x^{n-m+1}$意义下，$R_R(x)$被消去，于是</p>
+<script type="math/tex; mode=display">
+Q_R(x)\equiv F_R(x)G_R^{-1}(x) \pmod {x^{n-m+1}}</script><p>我们$O(n\log n)$地求出$Q_R(x)$，然后再算出$R(x)$即可解决。</p>
+<p>总复杂度$O(n\log n)$</p>
+<h2 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="function">ll <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ret = <span class="number">0</span>; <span class="keyword">char</span> c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">	<span class="keyword">while</span> (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>) ret = ret * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">q_pow</span><span class="params">(ll a, ll b, ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ret = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) ret = (ret * a) % p;</span><br><span class="line">		a = (a * a) % p, b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; a, T&amp; b)</span> </span>&#123; T t = a; a = b, b = t; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 400005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 998244353</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GE 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a, b) (((a) &gt; (b)) ? (a) : (b))</span></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">squ</span><span class="params">(ll x)</span> </span>&#123; <span class="keyword">return</span> (x * x) % MOD; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Rev[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Copy</span><span class="params">(ll* A, <span class="keyword">const</span> ll* B, <span class="keyword">int</span> LIM)</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= LIM; ++i) A[i] = B[i]; &#125; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Reverse</span><span class="params">(ll* A, <span class="keyword">int</span> LIM)</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LIM - i; ++i) swap(A[i], A[LIM - i]); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Minus</span><span class="params">(ll* A, <span class="keyword">int</span> N, <span class="keyword">const</span> ll* B, <span class="keyword">int</span> M)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> LIM = max(N, M), i;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= LIM; ++i) A[i] = (A[i] - B[i] + MOD) % MOD;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NTT</span><span class="params">(ll* A, <span class="keyword">int</span> LIM, <span class="keyword">int</span> flag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, len, s;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) <span class="keyword">if</span> (i &lt; Rev[i]) swap(A[i], A[Rev[i]]);</span><br><span class="line">    <span class="keyword">for</span> (len = <span class="number">2</span>; len &lt;= LIM; len &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ll g = (q_pow(GE, (MOD - <span class="number">1</span>) / len, MOD) + MOD) % MOD, w;</span><br><span class="line">        <span class="keyword">if</span> (flag == <span class="number">-1</span>) g = q_pow(g, MOD - <span class="number">2</span>, MOD);</span><br><span class="line">        <span class="keyword">for</span> (s = <span class="number">0</span>; s &lt; LIM; s += len)</span><br><span class="line">        &#123;</span><br><span class="line">			w = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (i = s; i &lt; s + (len &gt;&gt; <span class="number">1</span>); ++i, w = (w * g) % MOD)</span><br><span class="line">            &#123;</span><br><span class="line">                ll nx = A[i], ny = (w * A[i + (len &gt;&gt; <span class="number">1</span>)]) % MOD;</span><br><span class="line">                A[i] = (nx + ny) % MOD, A[i + (len &gt;&gt; <span class="number">1</span>)] = (nx - ny + MOD) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ll T[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Inv</span><span class="params">(ll* G, <span class="keyword">const</span> ll* F, <span class="keyword">int</span> LIM, <span class="keyword">int</span> L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (LIM == <span class="number">1</span>) &#123; G[<span class="number">0</span>] = q_pow(F[<span class="number">0</span>], MOD - <span class="number">2</span>, MOD); <span class="keyword">return</span>; &#125;</span><br><span class="line">    Inv(G, F, LIM &gt;&gt; <span class="number">1</span>, L - <span class="number">1</span>), Copy(T, F, LIM); <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) Rev[i] = (Rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; L);</span><br><span class="line">    NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>), NTT(T, LIM &lt;&lt; <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = ((<span class="number">2</span> * G[i] - ((T[i] * squ(G[i])) % MOD)) % MOD + MOD) % MOD;</span><br><span class="line">    NTT(G, LIM &lt;&lt; <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) G[i] = (G[i] * q_pow(LIM &lt;&lt; <span class="number">1</span>, MOD - <span class="number">2</span>, MOD)) % MOD;</span><br><span class="line">    <span class="keyword">for</span> (i = LIM; i &lt; (LIM &lt;&lt; <span class="number">1</span>); ++i) G[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">INV</span><span class="params">(ll* G, <span class="keyword">const</span> ll* F, <span class="keyword">int</span> N)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> LIM = <span class="number">1</span>, L = <span class="number">0</span>, i;</span><br><span class="line">	<span class="keyword">while</span> (LIM &lt;= (N + <span class="number">1</span>)) LIM &lt;&lt;= <span class="number">1</span>, ++L;</span><br><span class="line">	Inv(G, F, LIM, L);</span><br><span class="line">	<span class="keyword">for</span> (i = N + <span class="number">1</span>; i &lt; LIM; ++i) G[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Multiply</span><span class="params">(ll* F, <span class="keyword">int</span> N, ll* G, <span class="keyword">int</span> M)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> LIM = <span class="number">1</span>, L = <span class="number">0</span>, i; <span class="keyword">while</span> (LIM &lt;= N + M) LIM &lt;&lt;= <span class="number">1</span>, ++L;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; LIM; ++i) Rev[i] = (Rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>));</span><br><span class="line">	NTT(F, LIM, <span class="number">1</span>), NTT(G, LIM, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; LIM; ++i) F[i] = (F[i] * G[i]) % MOD;</span><br><span class="line">	NTT(F, LIM, <span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N + M; ++i) F[i] = (F[i] * q_pow(LIM, MOD - <span class="number">2</span>, MOD)) % MOD;</span><br><span class="line">	<span class="keyword">for</span> (i = N + M + <span class="number">1</span>; i &lt; LIM; ++i) F[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, K, LIM = <span class="number">1</span>, L; ll F[MAXN], G[MAXN], Gi[MAXN], Q[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	N = read(), M = read(); <span class="keyword">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= N; ++i) F[i] = read(); <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= M; ++i) G[i] = read();</span><br><span class="line">	</span><br><span class="line">	K = N - M; <span class="comment">//由于我们下面一部分运算在模x^&#123;n-m+1&#125;意义下，于是设K为N-M，为模后的次数。</span></span><br><span class="line">	Reverse(F, N), Reverse(G, M), INV(Gi, G, K); <span class="comment">//此时Gi为G的逆</span></span><br><span class="line">	Copy(Q, F, K), Reverse(F, N), Reverse(G, M); <span class="comment">//复制Q=F</span></span><br><span class="line">	Multiply(Q, K, Gi, K); <span class="comment">//Q=Q*Gi，次数我们完成了对Q_R(x)的运算。</span></span><br><span class="line">    <span class="keyword">for</span> (i = K + <span class="number">1</span>; i &lt;= (K &lt;&lt; <span class="number">1</span>); ++i) Q[i] = <span class="number">0</span>; <span class="comment">//我们在模x^&#123;n-m+1&#125;意义下运算，多余的没了</span></span><br><span class="line">    Reverse(Q, K); <span class="comment">//我们完成了对Q(x)的运算</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= K; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, Q[i]); <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	Multiply(Q, K, G, M), Minus(F, N, Q, N);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; M; ++i) <span class="built_in">printf</span>(<span class="string">"%lld "</span>, F[i]); <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+            <a href="/tags/多项式/" rel="tag"># 多项式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/01/网络流-最大流/" rel="next" title="网络流: 最大流">
+                <i class="fa fa-chevron-left"></i> 网络流: 最大流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/12/题解-luoguP5255-美丽家园/" rel="prev" title="题解 luoguP5255 美丽家园">
+                题解 luoguP5255 美丽家园 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://cn.gravatar.com/avatar/819581f4a517e220032524f775376dac?d=mm&s=256" alt="Mr_Wu">
+            
+              <p class="site-author-name" itemprop="name">Mr_Wu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链qwq
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://AndyFew.github.io/" title="AC_Dophin" target="_blank">AC_Dophin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hellonk.github.io/" title="hellonk" target="_blank">hellonk</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式乘法"><span class="nav-number">2.</span> <span class="nav-text">多项式乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系数表示法"><span class="nav-number">2.1.1.</span> <span class="nav-text">系数表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点值表示法"><span class="nav-number">2.1.2.</span> <span class="nav-text">点值表示法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复数"><span class="nav-number">2.1.3.</span> <span class="nav-text">复数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单位根"><span class="nav-number">2.1.4.</span> <span class="nav-text">单位根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶"><span class="nav-number">2.1.5.</span> <span class="nav-text">阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原根"><span class="nav-number">2.1.6.</span> <span class="nav-text">原根</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速傅里叶变换-FFT"><span class="nav-number">2.2.</span> <span class="nav-text">快速傅里叶变换(FFT)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思想"><span class="nav-number">2.2.1.</span> <span class="nav-text">思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#快速傅里叶变换-FFT-的大体框架"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">快速傅里叶变换(FFT)的大体框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散型傅立叶变换-DFT"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">离散型傅立叶变换(DFT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散型傅里叶逆变换-IDFT"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">离散型傅里叶逆变换(IDFT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFT流程"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">FFT流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现"><span class="nav-number">2.2.2.</span> <span class="nav-text">递归实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复数实现"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">复数实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归实现FFT"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">递归实现FFT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蝴蝶操作-amp-Rader排序"><span class="nav-number">2.2.3.</span> <span class="nav-text">蝴蝶操作 &amp; Rader排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#蝴蝶操作"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">蝴蝶操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rader排序"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">Rader排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.2.4.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速数论变换-NTT"><span class="nav-number">2.3.</span> <span class="nav-text">快速数论变换(NTT)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快读数论变换-NTT-的大体框架"><span class="nav-number">2.3.1.</span> <span class="nav-text">快读数论变换(NTT)的大体框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.3.2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">2.3.3.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式求逆"><span class="nav-number">3.</span> <span class="nav-text">多项式求逆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">3.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础结论"><span class="nav-number">3.2.</span> <span class="nav-text">基础结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#细节"><span class="nav-number">3.3.</span> <span class="nav-text">细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现-2"><span class="nav-number">3.4.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式除法"><span class="nav-number">4.</span> <span class="nav-text">多项式除法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述-1"><span class="nav-number">4.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础结论-1"><span class="nav-number">4.2.</span> <span class="nav-text">基础结论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">4.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#式子"><span class="nav-number">4.2.2.</span> <span class="nav-text">式子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现-3"><span class="nav-number">4.3.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr_Wu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'p00FqddhdYGyTolMQ08Mn1Ej-gzGzoHsz',
+        appKey: 'fT9XQq6MBaBjohTPwwxCtXv8',
+        placeholder: 'QwQ',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
