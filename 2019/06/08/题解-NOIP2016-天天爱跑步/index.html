@@ -83,21 +83,21 @@
 
 
 
-<meta name="description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$ 式子看到题目的第一步，我们希望能通过一个式子来表达出 $ans[u]$ 的值，而不是枚举">
+<meta name="description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$">
 <meta name="keywords" content="题解,LCA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 [NOIP2016]天天爱跑步">
 <meta property="og:url" content="https://github.com/wyy603/wyy603.github.io.git/2019/06/08/题解-NOIP2016-天天爱跑步/index.html">
 <meta property="og:site_name" content="Mr_Wu&#39;s Blog">
-<meta property="og:description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$ 式子看到题目的第一步，我们希望能通过一个式子来表达出 $ans[u]$ 的值，而不是枚举">
+<meta property="og:description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.niupic.com/images/2019/06/08/_50.png">
 <meta property="og:image" content="https://i.niupic.com/images/2019/06/08/_51.png">
 <meta property="og:image" content="https://i.niupic.com/images/2019/06/08/_50.png">
-<meta property="og:updated_time" content="2019-06-08T11:00:38.181Z">
+<meta property="og:updated_time" content="2019-06-08T11:02:32.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 [NOIP2016]天天爱跑步">
-<meta name="twitter:description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$ 式子看到题目的第一步，我们希望能通过一个式子来表达出 $ans[u]$ 的值，而不是枚举">
+<meta name="twitter:description" content="题意给一棵 $n$ 个节点树，每个点有一个值 $W_i$ 给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$ 求最后每个点的答案 $n, m\le 300000, 0\le W_i\le n$">
 <meta name="twitter:image" content="https://i.niupic.com/images/2019/06/08/_50.png">
 
 
@@ -352,6 +352,7 @@
 <p>给 $m$ 条路径，从 $S_i$ 到 $T_i$，走一条边要一个单位时间，如果在这条路径上走路并恰在 $W_u$ 时间走到 $u$ 点，对 $u$ 的答案贡献 $1$</p>
 <p>求最后每个点的答案</p>
 <p>$n, m\le 300000, 0\le W_i\le n$</p>
+<a id="more"></a>
 <h4 id="式子"><a href="#式子" class="headerlink" title="式子"></a>式子</h4><p>看到题目的第一步，我们希望能通过一个式子来表达出 $ans[u]$ 的值，而不是枚举每条路径并考虑对哪些点做了贡献。</p>
 <p>我们会思考什么样的路径会过 $u$，拿样例举例：</p>
 <p><img src="https://i.niupic.com/images/2019/06/08/_50.png" alt=""></p>
