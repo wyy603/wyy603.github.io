@@ -343,81 +343,15 @@
 
       
         
-          
-            <h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p>本校 OJ 上题目链接 <a href="http://124.205.120.153/contest/140/problem/1337" target="_blank" rel="noopener">BNDSOJ1337</a></p>
+          <h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p>本校 OJ 上题目链接 <a href="http://124.205.120.153/contest/140/problem/1337" target="_blank" rel="noopener">BNDSOJ1337</a></p>
 <p>具体来源不明</p>
-<h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>$s_i$ 是一个字符串，定义 $s_1=a, s_2=b, s_i=s_{i-1}s_{i-2}(i\ge 3)$ （这里 $s_{i-1}s_{i-2}$ 是拼接）</p>
-<p>给定 $n,m$，现在你要求的是 $s_n$ 的 $kmp_m$，$kmp_m$ 是 $kmp$ 数组中的第 $m$ 项，即最大的 $i&lt;m$ 满足 $s[1,i]=s[m-i+1,m]$</p>
-<p>$n\le 10^3, 1\le m\le |s_n|, 1\le T\le 100​$，$T​$ 是数据组数，答案模 $258280327​$</p>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><blockquote>
-<p>官方题解：</p>
-<p>这一类的字符串的特殊性还是<strong>挺明显的</strong>，打一个表或者找规律就可以发现：令 $n$ 为最小的 $n$ 满足 $|s_n|&gt;m+1$，那么答案就是 $m-|s_{n-2}|$。<strong>证明还是挺简单的大家脑补一下就好了。</strong></p>
-<p>所以<strong>直接上高精度计算</strong>就好了，时间复杂度$O(n^2)$。</p>
-</blockquote>
-<p>可见出题人十分的强，上面的粗体字实际上全都是要仔细研究的。</p>
-<p>先说高精度计算，由于 $|s_n|=f_n$，你需要高精度斐波那契，所以你需要加法</p>
-<p>由于 $m-|s_{n-2}|$ 所以你需要减法，由于取模新需要取模，取模方法与快速读入方法相同。</p>
-<p>所以你的代码要写的特别长。</p>
-<p>先把代码放下，证明在下面。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1005</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">T <span class="title">max</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span> </span>&#123; <span class="keyword">return</span> a &gt; b ? a : b; &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">num</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a[MAXN], l;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123; <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= l; ++i) a[i] = <span class="number">0</span>; l = <span class="number">0</span>; &#125;</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span>+= (<span class="keyword">const</span> num&amp; T)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> i, tl = max(T.l, l);</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= tl; ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			a[i] += T.a[i];</span><br><span class="line">			<span class="keyword">if</span> (a[i] &gt;= <span class="number">10</span>) a[i] -= <span class="number">10</span>, ++a[i + <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		l = tl;</span><br><span class="line">		<span class="keyword">if</span> (a[l + <span class="number">1</span>]) ++l; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span>= (<span class="keyword">const</span> num&amp; T)</span><br><span class="line">	&#123;</span><br><span class="line">		clear(), l = T.l;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= l; ++i) a[i] = T.a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">void</span> <span class="keyword">operator</span>-= (<span class="keyword">const</span> num&amp; T)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> i, tl = max(T.l, l);</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= tl; ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			a[i] -= T.a[i];</span><br><span class="line">			<span class="keyword">if</span> (a[i] &lt; <span class="number">0</span>) a[i] += <span class="number">10</span>, --a[i + <span class="number">1</span>]; </span><br><span class="line">		&#125;</span><br><span class="line">		l = tl;</span><br><span class="line">		<span class="keyword">if</span> (!a[l]) --l;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&gt; (num&amp; A, num&amp; B)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (A.l &gt; B.l) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (A.l &lt; B.l) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = A.l; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (A.a[i] &gt; B.a[i]) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (A.a[i] &lt; B.a[i]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ll <span class="keyword">operator</span>% (ll P)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> i; ll ret = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (i = l; i &gt;= <span class="number">0</span>; --i) ret = (ret * <span class="number">10</span> + a[i]) % P;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> T, N; <span class="keyword">char</span> S[MAXN]; num M, A, B, C, M1, ONE;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">	ONE.a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%s"</span>, &amp;N, S); <span class="keyword">int</span> i, j, l;</span><br><span class="line">		M.clear(), A.clear(), B.clear(), C.clear(), l = <span class="built_in">strlen</span>(S);</span><br><span class="line">		M.l = l - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; l; ++i) M.a[l - <span class="number">1</span> - i] = S[i] - <span class="string">'0'</span>;</span><br><span class="line">		B.a[<span class="number">0</span>] = C.a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (M.l == <span class="number">0</span> &amp;&amp; M.a[<span class="number">0</span>] == <span class="number">1</span>) &#123; <span class="built_in">puts</span>(<span class="string">"0"</span>); <span class="keyword">continue</span>; &#125;</span><br><span class="line">		M1 = M, M1 += ONE;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">3</span>; <span class="number">1</span>; ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			A = B, A += C;</span><br><span class="line">			<span class="keyword">if</span> (A &gt; M1) <span class="keyword">break</span>;</span><br><span class="line">			C = B, B = A;</span><br><span class="line">		&#125;</span><br><span class="line">		M -= C;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, M % <span class="number">258280327l</span>l);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p>下面我们可以看看 “ <strong>证明还是挺简单的大家脑补一下就好了。</strong> ” 究竟是个什么东西。</p>
-<blockquote>
-<p> 引理 1</p>
-</blockquote>
-<p>对一个 $m$，若 $|s_{n_0-1}|\le m+1&lt;|s_{n_0}|$，则当 $n\ge n_0$ 时答案都是一样的。这说明了输入的 $n$ 没有任何用处。</p>
-<p>证明：考虑 $s_{n_0+1}=s_{n_0}s_{n_0-1}$，$s_{n_0+2}=s_{n_0+1}s_{n_0}$，…</p>
-<p>那么对于 $n\ge n_0$，$s_n$ 一定有一个与 $s_{n_0}$ 相同的前缀。</p>
-<p>而 $m$ 的位置肯定在 $s_{n_0}$ 里。所以 $s_n$ 除了 $s_{n_0}$ 的部分对答案没有任何用处。</p>
-<p>证毕。</p>
-<blockquote>
-<p>引理 2</p>
-</blockquote>
-<p>对任意 $n\ge 2$，$s_ns_{n-1}$ 与 $s_{n-1}s_n$ 的区别仅在于最后两个字符不同。（并且一定不同）</p>
-<p>证明：当 $n=2$ 时，$s_1=a,s_2=b,s_1s_2=ab,s_2s_1=ba$，这时结论成立。</p>
-<p>当 $n=m$ 时可行，考虑 $n=m+1$ 时</p>
-<p>$s_{m+1}+s_m=s_m+s_{m-1}+s_m$</p>
-<p>$s_{m}+s_{m+1}=s_m+s_m+s_{m-1}$</p>
-<p>而 $s_{m-1}+s_m$ 与 $s_m+s_{m-1}$ 仅最后两位不同，于是 $s_{m+1}+s_m$ 与 $s_m+s_{m+1}$ 仅最后两位不同。</p>
-<p>证毕。</p>
-<p>下面证明原结论。</p>
-<p>由引理 1，首先我们不妨找到 $n$ 满足 $|s_{n-1}|\le m+1&lt;|s_{n}|$ ，我们假设 $n$ 比较大，比较小的时候我们尝试打表得到结论，这里 $n\ge 7$ 吧。便于证明。</p>
-<p><img src="https://i.niupic.com/images/2019/06/20/_256.png" alt=""></p>
-<p>考虑 $n=9$ 时。此时显然 $m$ 的位置应该在红色的部分中间。</p>
-<blockquote>
-<p>我们首先证明：当 $m$ 的位置在绿色部分与红色部分的公共部分中间时，结论成立。</p>
-</blockquote>
-<p>一方面：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-& s_n \\
-&= s_{n-1}+s_{n-2} \\
-&= s_{n-2}+s_{n-3}+s_{n-2} \\
-&= s_{n-3}+s_{n-4}+s_{n-4}+s_{n-5}+s_{n-2} \\
-&= s_{n-3}+s_{n-4}+s_{n-5}+s_{n-6}+s_{n-5}+s_{n-2} \\
-&= s_{n-3}+s_{n-3}+s_{n-6}+s_{n-5}+s_{n-2}
-\end{aligned}</script><p>另一方面：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&s_n \\
-&= s_{n-1}+s_{n-2} \\
-&= s_{n-2}+s_{n-3}+s_{n-2} \\
-&= s_{n-2}+s_{n-3}+s_{n-3}+s_{n-4} \\
-&= s_{n-2}+s_{n-3}+s_{n-3}+s_{n-5}+s_{n-6}
-\end{aligned}</script><p>在图中·，我用黑色标识了 $s_{n-2}$，用绿色标识了 $s_{n-3}$.</p>
-<p>可以结合图和式子看出：$s_n$ 的前缀中可以有 $s_{n-3}+s_{n-3}$，也可以有 $s_{n-2}+s_{n-3}+s_{n-3}$。这说明</p>
-<p>两个橙色部分是相等的。那么我们的公共前后缀至少也是 $m-|s_{n-2}|$ 这么长了吧。</p>
-<p><del>我们还能证明不能比 $m-|s_{n-2}|$ 大，</del> 我不会证。望有大佬帮忙补充 ..</p>
-<blockquote>
-<p>然后我们证明：当 $m$ 的位置在蓝色部分内 （ $m+1&lt;|s_n|$ 也需要成立），结论成立。</p>
-</blockquote>
-<p>我们已经知道了两个橙色部分是相等的，并且不能扩展，那么如果我们希望答案仍然是 $m-|s_{n-2}|$，我们的任务是找到黄色部分和蓝色部分的最大公共前缀。</p>
-<p>根据上面推过的式子，黄色部分是 $s_{n-6}+s_{n-5}$，蓝色部分是 $s_{n-5}+s_{n-6}$。</p>
-<p>引理 2 告诉我们这两个串只有最后两个字符不同，所以 $m$ 最大可以扩大到 $|s_n|-2$。</p>
-<p>但我们有 $m+1&lt;|s_n|$。</p>
-<p>证毕。</p>
-<p>于是我们证完了这个结论。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/20/题解-对你的爱深不见底/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
