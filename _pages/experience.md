@@ -5,7 +5,7 @@ permalink: /experience/
 author_profile: true
 ---
 
-In this section, I will describe my programming experience, including course projects and research experience.
+A collection of my research and course projects, focusing on Generative AI, Embodied Intelligence, and 3D Vision.
 
 ---
 
@@ -15,16 +15,20 @@ In this section, I will describe my programming experience, including course pro
 
 * **Date:** 11/2025 – 05/2026 (expected)
 * **Description:**
+    * Under the guidance of Prof. [Sherry Yang](https://sherryy.github.io/index.html)
     * Using LLMs to develop an end-to-end framework for Crystal Structure Generation (CSG) problem. The model should be able to generate crystal structures from high-level text instructions.
     * Optimizing structures by utilizing abstract-to-concrete reasoning traces and well-designed reinforcement learning reward functions.
 
-## **Project Experience**
+---
+
+## Project Experience
 
 ### Adam’s Hand: A Dual-Arm Handover Policy with Instruction Following
 
 <img src='/images/projects/adam.png' alt='Adam’s Hand: A Dual-Arm Handover Policy with Instruction Following' style='width: 50%;'>
 
 * **Repository:** [wyy603/eai_final](https://gi thub.com/wyy603/eai-final/tree/syb)
+* **Collaborators:** [Guohao Jing](https://github.com/MonkeyKing2005), [Youbo Shao](https://github.com/shaoyoubo)
 * **Date:** 11/2025 – 01/2026
 * **Description:**
     * Built a realistic simulation environment based on the LeRobot SO-101 platform and implemented a self-developed gradient-based Inverse Kinematics (IK) solver for robust expert data collection.
@@ -35,6 +39,7 @@ In this section, I will describe my programming experience, including course pro
 <img src='/images/projects/supervised_sugar.png' alt='Supervised Prior for Aligning Surface of Gaussian Splatting' style='width: 50%;'>
 
 * **Repository:** [shaoyoubo/Supervised_Sugar](https://github.com/shaoyoubo/Supervised_Sugar)
+* **Collaborators:** [Youbo Shao](https://github.com/shaoyoubo), Kaixin Zhang
 * **Date:** 04/2025 – 06/2025
 * **Description:**
     * Combined external normal and depth supervision with regularizations from *SuGaR (Surface-Aligned Gaussian Splatting for Efficient 3D Mesh Reconstruction and High-Quality Mesh Rendering)* to extract accurate surface meshes from 3DGS.
@@ -46,6 +51,7 @@ In this section, I will describe my programming experience, including course pro
 <img src='/images/projects/isr.png' alt='Humanoid Running in Simulated Environment' style='width: 50%;'>
 
 * **Repository:** [wyy603/isr_project](https://github.com/wyy603/isr_project)
+* **Collaborators:** [Ruinian Chang](https://github.com/127command)
 * **Date:** 10/2024 – 12/2024
 * **Description:**
     * Trained a humanoid robot to run at high speeds on random terrain using reinforcement learning within a simulated environment.
@@ -57,6 +63,7 @@ In this section, I will describe my programming experience, including course pro
 <img src='/images/projects/overcraft.png' alt='Overcraft: A Web-based Cooperative Party Game' style='width: 50%;'>
 
 * **Repository:** [wyy603/acg_project2](https://github.com/wyy603/acg_project2)
+* **Collaborators:** [Guohao Jing](https://github.com/MonkeyKing2005)
 * **Date:** 10/2024 – 12/2024
 * **Description:**
     * Designed a web-based cooperative party game where users play similarly to *Overcooked*, involving cooking, grabbing, and throwing food in a 3D world.
