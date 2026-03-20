@@ -27,7 +27,7 @@ A collection of my research and course projects, focusing on Generative AI, Embo
 
 <img src='/images/projects/adam.png' alt='Adam’s Hand: A Dual-Arm Handover Policy with Instruction Following' style='width: 50%;'>
 
-* **Repository:** [wyy603/eai_final](https://gi thub.com/wyy603/eai-final/tree/syb)
+* **Repository:** [wyy603/eai_final](https://github.com/wyy603/eai-final/tree/syb)
 * **Collaborators:** [Guohao Jing](https://github.com/MonkeyKing2005), [Youbo Shao](https://github.com/shaoyoubo)
 * **Date:** 11/2025 – 01/2026
 * **Description:**
