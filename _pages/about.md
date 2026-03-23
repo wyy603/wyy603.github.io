@@ -15,7 +15,7 @@ I have extensive experience in LLMs, Computer Vision, and Robotics, and I am eag
 
 # Education
 - **Tsinghua University** | Beijing, China \
-  *B.E. in Computer Science and Technology (Yao Class)* \
+  *B.Eng. in Computer Science and Technology (Yao Class)* \
   Sept. 2023 – Present (Expected June 2027)
 
 # Research Experience
