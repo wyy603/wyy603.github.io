@@ -9,18 +9,6 @@ A collection of my research and course projects, focusing on Generative AI, Embo
 
 ---
 
-## **Ongoing Projects**
-
-### CrystalReasoning
-
-* **Date:** 11/2025 – 05/2026 (expected)
-* **Description:**
-    * Under the guidance of Prof. [Sherry Yang](https://sherryy.github.io/index.html)
-    * Using LLMs to develop an end-to-end framework for Crystal Structure Generation (CSG) problem. The model should be able to generate crystal structures from high-level text instructions.
-    * Optimizing structures by utilizing abstract-to-concrete reasoning traces and well-designed reinforcement learning reward functions.
-
----
-
 ## Project Experience
 
 ### Adam’s Hand: A Dual-Arm Handover Policy with Instruction Following

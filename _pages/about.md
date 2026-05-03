@@ -21,7 +21,6 @@ I have extensive experience in LLMs, Computer Vision, and Robotics, and I am eag
 # Research Experience
 - **CLIVR Lab, New York University** \| Remote \
     *Research Intern, Advised by Prof. Sherry Yang* \| Oct. 2025 – Present \
-    - Developing a reasoning-based framework for conditional crystal structure generation, leveraging LLMs to receive high-level text input and generate corresponding crystal structures.
 
 - **3DVICI Lab, Tsinghua University** \| Beijing, China \
     *Undergraduate Researcher, Advised by Prof. Yi Li* \| Feb. 2025 – July 2025 \
