@@ -69,6 +69,3 @@ A collection of my research and course projects, focusing on Generative AI, Embo
     * Conducted research under the supervision of Professor [Li Yi](https://ericyi.github.io/).
     * Developed an animation retargeting framework that generates realistic humanoid motions from human animations while strictly preserving physical properties.
 
----
-
-Would you like me to refine the wording of the bullet points to make them sound more "action-oriented" for a CV or resume?
